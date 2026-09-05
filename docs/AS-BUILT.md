@@ -4,6 +4,10 @@ Date: 2026-09-04
 Status: Interactive Windows suggestion mockup; not configured for startup
 Source: `D:\Source\Dev\Git\Pub\MyBuddy-AI`
 
+## Source-control publication
+
+The user authorized commit and publication after live contextual-email acceptance. The canonical `main` branch is committed and pushed to the private repository <https://github.com/kgkzworld/MyBuddy-AI>. The first published commit is `61418338ffda2f3958d268568c4343aa5497ec71`; subsequent documentation synchronization is recorded in Git history. Generated dependencies/build output and machine-local credentials, sessions, approvals, and provider state remain excluded.
+
 ## Contextual equipped-agent follow-ups and Clear reset — ADA-080
 
 - The reported email-link failure was traced across the real routing seam. `ConversationContext` already retained the prior answer and agent-first planning consumed it, but the ordinary equipped-agent passthrough invoked `ask_qwen` with only the newest request. Each `hermes chat --query-file -` call starts a fresh query, so the selected AI had no representation of “the email” and asked the user to identify it again.

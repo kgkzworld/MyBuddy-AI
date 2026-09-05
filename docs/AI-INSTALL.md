@@ -1,5 +1,7 @@
 # AI-Assisted MyBuddy-AI Installation Playbook
 
+Canonical private source: `https://github.com/kgkzworld/MyBuddy-AI.git`. Confirm the operator has repository access before cloning; never request or expose their GitHub credential.
+
 Use this workflow when a user asks an equipped AI agent to install MyBuddy-AI. The goal is a verified native installation, not a list of commands or a claim based only on a successful build.
 
 ## Authorization boundary

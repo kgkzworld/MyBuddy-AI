@@ -2,6 +2,8 @@
 
 A local-first desktop assistant and visual interface to a selected equipped Codex, Claude, Qwen, or Hermes runtime. It observes privacy-approved active-window metadata, detects simple struggle patterns, renders help as Adaptive Cards, and exposes bounded local/visual capabilities where MBAI—not the selected model—must mediate the desktop. The source folder and internal application identifier retain their original names for compatibility.
 
+Private canonical GitHub repository: <https://github.com/kgkzworld/MyBuddy-AI>
+
 The name and companion-first product idea are inspired by the 1980s [My Buddy commercial](https://www.youtube.com/watch?v=OdximU6Ao00): give AI a friendly face that stays close, is quick to reach, answers, teaches, and helps. This project is not affiliated with the toy brand and does not reuse its character, music, or artwork.
 
 ## Current safety boundary

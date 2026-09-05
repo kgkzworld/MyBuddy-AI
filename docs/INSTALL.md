@@ -7,7 +7,7 @@ This guide provides a click-through path and a source-build path for Windows, ma
 ## Choose an installation route
 
 - **Release installer:** easiest for end users after platform-native artifacts are published.
-- **Build from source:** current canonical route while this local repository has no published remote release.
+- **Build from source:** current canonical route from the private GitHub repository; access requires repository authorization.
 - **Automated:** use `scripts/install-mybuddy.ps1` on Windows or `scripts/install-mybuddy.sh` on macOS/Linux.
 - **AI-assisted:** give `docs/AI-INSTALL.md` to an equipped AI agent and approve only the stated machine changes.
 
@@ -24,7 +24,7 @@ MyBuddy-AI does not store provider credentials in the repository. Hermes profile
 5. Install the **Microsoft Edge WebView2 Evergreen Runtime** from <https://developer.microsoft.com/microsoft-edge/webview2/> if it is not already present.
 6. Install **Python 3.11 or newer** from <https://python.org/> and select **Add Python to PATH**.
 7. Install Hermes Agent by opening PowerShell and running the official Windows installer command from <https://hermes-agent.nousresearch.com/docs/installation>. Complete `hermes setup`, then run `hermes doctor`.
-8. Obtain this repository. Until a GitHub remote is published, copy the `MyBuddy-AI` repository folder to the machine. After publication, use GitHub's **Code → Download ZIP**, extract it, or clone it with Git.
+8. Obtain the private repository. After GitHub access is granted, use **Code → Download ZIP** and extract it, or run `git clone https://github.com/kgkzworld/MyBuddy-AI.git`.
 9. Open PowerShell in the repository folder and run:
 
    ```powershell
