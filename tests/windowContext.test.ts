@@ -14,7 +14,7 @@ import {
 
 const terminal = {
   processName: "WindowsTerminal.exe",
-  title: "pwsh in kgkzworld",
+  title: "pwsh in developer-shell",
   observedAt: "2026-08-28T22:42:39Z",
 };
 

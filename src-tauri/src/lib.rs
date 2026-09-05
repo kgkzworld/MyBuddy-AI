@@ -450,7 +450,12 @@ pub fn run() {
                     std::thread::sleep(std::time::Duration::from_secs(3));
                     let _ = handle.emit("smoke-auto-suggestion", ());
                     std::thread::sleep(std::time::Duration::from_secs(2));
-                    let _ = handle.emit("smoke-largest-files-status", ());
+                    if let Ok(root) = std::env::current_dir() {
+                        let _ = handle.emit(
+                            "smoke-largest-files-status",
+                            root.to_string_lossy().to_string(),
+                        );
+                    }
                 });
             }
             if std::env::args().any(|argument| argument == "--smoke-provider-question") {

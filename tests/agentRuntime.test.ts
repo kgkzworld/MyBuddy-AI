@@ -10,6 +10,8 @@ import conversationCards from "../src/cards/conversationCard.ts?raw";
 import { agentToolApprovalCard, agentToolResultCard } from "../src/cards/conversationCard";
 import nativeHost from "../src-tauri/src/lib.rs?raw";
 
+const syntheticWindowsRoot = ["X:", "example"].join("\\");
+
 describe("agent-first turn coordinator", () => {
   it.each([
     "get my important emails for the past week",
@@ -146,13 +148,13 @@ describe("agent-first turn coordinator", () => {
     ]);
     await tools[1].execute({});
     await tools[2].execute({ limit: 50 });
-    await tools[3].execute({ path: "D:\\Source", limit: 0 });
+    await tools[3].execute({ path: syntheticWindowsRoot, limit: 0 });
     expect(await tools[4].execute({})).toEqual(activeWindow);
     expect(await tools[5].execute({})).toMatchObject({ iso: "2026-09-02T16:00:00.000Z" });
     expect(calls).toEqual([
       { command: "get_running_services_status", argumentsValue: undefined },
       { command: "get_top_memory_applications_status", argumentsValue: { limit: 10 } },
-      { command: "get_largest_files_status", argumentsValue: { path: "D:\\Source", limit: 1 } },
+      { command: "get_largest_files_status", argumentsValue: { path: syntheticWindowsRoot, limit: 1 } },
     ]);
   });
 

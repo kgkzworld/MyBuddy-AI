@@ -65,9 +65,9 @@ describe("portable MBAI harness", () => {
       "scripts/install_harness.py",
     ].map(read).join("\n");
 
-    expect(portableFiles).not.toContain("H:\\My Drive");
-    expect(portableFiles).not.toContain("kgkzworld");
-    expect(portableFiles).not.toContain("Python313");
+    expect(portableFiles).not.toMatch(/\b[A-Za-z]:[\\/]/);
+    expect(portableFiles).not.toMatch(/\/(?:Users|home)\//);
+    expect(portableFiles).not.toMatch(/Python\d{3}/);
     expect(portableFiles).not.toContain("COMPOSIO_API_KEY=");
   });
 

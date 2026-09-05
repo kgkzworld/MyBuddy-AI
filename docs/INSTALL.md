@@ -7,7 +7,7 @@ This guide provides a click-through path and a source-build path for Windows, ma
 ## Choose an installation route
 
 - **Release installer:** easiest for end users after platform-native artifacts are published.
-- **Build from source:** current canonical route from the private GitHub repository; access requires repository authorization.
+- **Build from source:** clone or download the repository from the URL supplied by its maintainer.
 - **Automated:** use `scripts/install-mybuddy.ps1` on Windows or `scripts/install-mybuddy.sh` on macOS/Linux.
 - **AI-assisted:** give `docs/AI-INSTALL.md` to an equipped AI agent and approve only the stated machine changes.
 
@@ -24,7 +24,7 @@ MyBuddy-AI does not store provider credentials in the repository. Hermes profile
 5. Install the **Microsoft Edge WebView2 Evergreen Runtime** from <https://developer.microsoft.com/microsoft-edge/webview2/> if it is not already present.
 6. Install **Python 3.11 or newer** from <https://python.org/> and select **Add Python to PATH**.
 7. Install Hermes Agent by opening PowerShell and running the official Windows installer command from <https://hermes-agent.nousresearch.com/docs/installation>. Complete `hermes setup`, then run `hermes doctor`.
-8. Obtain the private repository. After GitHub access is granted, use **Code → Download ZIP** and extract it, or run `git clone https://github.com/kgkzworld/MyBuddy-AI.git`.
+8. Obtain the repository using the URL supplied by its maintainer. Use the hosting service's download action, or run `git clone <repository-url>` and then enter the new clone directory.
 9. Open PowerShell in the repository folder and run:
 
    ```powershell
@@ -52,7 +52,7 @@ The commands in step 9 are the reproducible source path. Tauri's official prereq
 2. Install **Node.js LTS** using the macOS installer from <https://nodejs.org/>.
 3. Install **Rust** from <https://rustup.rs/> and choose the default toolchain.
 4. Install Hermes Agent using the official macOS installer from <https://hermes-agent.nousresearch.com/docs/installation>, run `hermes setup`, and verify with `hermes doctor`.
-5. Obtain and open the repository folder as described in the Windows section.
+5. Obtain and open the repository folder as described in the Windows section; keep the clone destination relative to the directory where you run Git unless you intentionally choose another location.
 6. In Terminal from that folder, run:
 
    ```bash

@@ -16,23 +16,28 @@ import {
   validateGeneratedStory,
 } from "../src/core/userRequest";
 
+const syntheticWindowsRoot = ["X:", "example"].join("\\");
+const misspelledSyntheticRoot = ["X:", "exampel"].join("\\");
+
 describe("user request classification", () => {
   it("plans the exact largest-files request as bounded local metadata work", () => {
-    expect(resolveLargestFilesPlan("get me a list of the 5 largest files under d:\\souce"))
-      .toEqual({ path: "d:\\souce", limit: 5 });
-    expect(classifyUserRequest("get me a list of the 5 largest files under d:\\souce"))
+    const request = `get me a list of the 5 largest files under ${misspelledSyntheticRoot}`;
+    expect(resolveLargestFilesPlan(request))
+      .toEqual({ path: misspelledSyntheticRoot, limit: 5 });
+    expect(classifyUserRequest(request))
       .toBe("largest-files-status");
   });
   it("bounds largest-file counts and keeps explanation requests non-actuating", () => {
-    expect(resolveLargestFilesPlan("list the 99 biggest files under D:\\Source"))
-      .toEqual({ path: "D:\\Source", limit: 10 });
-    expect(resolveLargestFilesPlan("show me how to find the 5 largest files under D:\\Source"))
+    expect(resolveLargestFilesPlan(`list the 99 biggest files under ${syntheticWindowsRoot}`))
+      .toEqual({ path: syntheticWindowsRoot, limit: 10 });
+    expect(resolveLargestFilesPlan(`show me how to find the 5 largest files under ${syntheticWindowsRoot}`))
       .toBeNull();
   });
   it("hides the internal Windows device prefix in largest-file answers", () => {
-    const answer = formatLargestFilesStatus("d:\\souce", "\\\\?\\D:\\Source", true,
-      [{ path: "\\\\?\\D:\\Source\\large.bin", sizeBytes: 2 * 1024 ** 3 }], false);
-    expect(answer).toContain("D:\\Source\\large.bin — 2.00 GiB");
+    const deviceRoot = `\\\\?\\${syntheticWindowsRoot}`;
+    const answer = formatLargestFilesStatus(misspelledSyntheticRoot, deviceRoot, true,
+      [{ path: `${deviceRoot}\\large.bin`, sizeBytes: 2 * 1024 ** 3 }], false);
+    expect(answer).toContain(`${syntheticWindowsRoot}\\large.bin — 2.00 GiB`);
     expect(answer).not.toContain("\\\\?\\");
   });
   it("routes ordinary questions to local Qwen", () => {

@@ -2,11 +2,17 @@
 
 Date: 2026-09-04
 Status: Interactive Windows suggestion mockup; not configured for startup
-Source: `D:\Source\Dev\Git\Pub\MyBuddy-AI`
+Source: repository root
 
 ## Source-control publication
 
-The user authorized commit and publication after live contextual-email acceptance. The canonical `main` branch is committed and pushed to the private repository <https://github.com/kgkzworld/MyBuddy-AI>. The first published commit is `61418338ffda2f3958d268568c4343aa5497ec71`; subsequent documentation synchronization is recorded in Git history. Generated dependencies/build output and machine-local credentials, sessions, approvals, and provider state remain excluded.
+The user authorized commit and publication after live contextual-email acceptance. The canonical `main` branch is committed and pushed to its configured remote. Repository hosting and visibility are intentionally not encoded in tracked content. Generated dependencies/build output and machine-local credentials, sessions, approvals, and provider state remain excluded.
+
+## Repository portability correction
+
+- Removed developer checkout, user-profile, vault, and fixed program-installation locations from tracked guidance and native launch candidates. Documentation now uses repository-relative paths, environment-variable roots, or operator-supplied placeholders.
+- Removed the hard-coded hosting account/clone URL and repository-visibility characterization. Git publication is described only through the checkout's configured remote.
+- The largest-files packaged smoke now receives `current_dir()` from the native host instead of embedding a workstation directory. Regression fixtures construct synthetic Windows paths, and a portability test scans tracked guidance for absolute home/drive paths, owner-specific clone URLs, and visibility claims.
 
 ## Contextual equipped-agent follow-ups and Clear reset — ADA-080
 
@@ -17,7 +23,7 @@ The user authorized commit and publication after live contextual-email acceptanc
 
 ## Canonical Git repository, portable installers, and durable transcript capture — ADA-078/079
 
-The prior source tree at `D:\Source\ambient-desktop-agent` contained an initialized Git directory with no commits and every project file untracked. The complete source was copied without `.git`, `node_modules`, `dist`, `.hermes`, or `src-tauri/target` into the canonical local repository `D:\Source\Dev\Git\Pub\MyBuddy-AI`; 216 included files matched by relative SHA-256. The target was initialized on branch `main`. No commit or GitHub remote was created because neither was explicitly authorized and GitHub CLI is not authenticated.
+The relocation milestone copied the complete source into a clean repository root without `.git`, `node_modules`, `dist`, `.hermes`, or `src-tauri/target`; 216 included files matched by relative SHA-256. The target was initialized on branch `main`. Developer checkout locations remain operational state outside tracked documentation.
 
 Added `docs/INSTALL.md`, `scripts/install-mybuddy.ps1`, `scripts/install-mybuddy.sh`, and `docs/AI-INSTALL.md`. They provide parallel click-through, code-automated, and AI-agent installation paths for Windows, macOS, and Linux. Windows remains the verified native implementation; macOS/Linux packaging steps are documented without claiming Win32 orb or adapter parity. The companion-first vision now cites the supplied 1980s My Buddy commercial while explicitly avoiding affiliation or reuse of toy assets.
 
@@ -82,7 +88,7 @@ Clean canonical-checkout automation passed 207 TypeScript tests, 56 Rust unit te
 
 - Direct largest/biggest-file questions with a Windows root now route to a native metadata-only adapter before provider dispatch.
 - The adapter limits results to 1–10, visits at most 100,000 entries, skips symlink traversal, reads paths/sizes only, and never opens file contents.
-- The exact reported `get me a list of the 5 largest files under d:\souce` wording is retained. Live packaged acceptance verified that the exact path was absent, disclosed the unique one-edit correction to `D:\Source`, and returned five ranked files rather than a provider refusal.
+- A synthetic misspelled-directory request is retained as a regression. Live packaged acceptance verified that an absent requested directory with exactly one one-edit sibling is corrected transparently and returns five ranked files rather than a provider refusal. No workstation directory is embedded in the fixture.
 - Final gate passed 162 TypeScript tests, 36 Rust unit tests, 3 orb-safety tests, frontend build, Rust formatting, and diff checks. SHA-256: MSI `4aa6ea7e2f879703f7fe47e5812aecf0fb4b4583869abb481e5dba8f06ef759a`; NSIS `95922b4330e27e0d7dffdc9c2b81efdad158b8c4d9068b52ff326345a7f594e8`.
 
 ## Sentence-shape-independent resource intent — ADA-068
@@ -152,7 +158,7 @@ Final unsigned bundles: MSI 13,160,448 bytes, SHA-256 `f755dd3e2af3ff18f9130a0e6
 - Persisted `codex-cli` for the trial. The exact read-only/ephemeral/no-rules/no-git-check stdin route returned `MYBUDDY_PROVIDER_OK`; rebuilt MyBuddy then rendered `MYBUDDY_CODEX_READY` through its normal question path. Normal runtime PID is 48024. LM Studio `instruct` and `autocomplete` remain loaded.
 - Replaced the light-theme dark-on-dark Settings defect with theme-aware surface/label/field/placeholder/border tokens. Automated contrast is at least 4.5:1; live light-mode inspection showed readable labels, selected Codex/version, and provider status text.
 - Two natural five-minute captures found no MyBuddy shell child or visible console. The LM Studio keepalive ran during the observed boundary without a visible window. Windows Desktop Spotlight `backgroundTaskHost.exe` is only a lead; ADA-060 remains Testing pending exact flash-time ownership.
-- The user subsequently reported an exact 20:25 local flash. Task Scheduler recorded `LM Studio - Ensure Local Models` at 20:25:02, and its log completed at 20:25:03.250 with both aliases already loaded. A 20 ms process/window capture across the next 20:35 boundary detected a top-level `WindowsTerminal.exe` window titled `Administrator: C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe` while the same interactive task ran. The task invokes `powershell.exe ... -WindowStyle Hidden` every five minutes under an interactive token; Windows Terminal hosting can therefore exist before the hidden state is applied. Desktop Spotlight also started at 20:35 but created no visible window in that capture. This makes the LM Studio task launcher the leading root cause of the black terminal flash, not MyBuddy or model loading. No task, Spotlight, MyBuddy, or LM Studio state was changed pending approval of a true no-console launcher correction.
+- The user subsequently reported an exact 20:25 local flash. Task Scheduler recorded `LM Studio - Ensure Local Models` at 20:25:02, and its log completed at 20:25:03.250 with both aliases already loaded. A 20 ms process/window capture across the next 20:35 boundary detected a top-level `WindowsTerminal.exe` window titled for the system PowerShell executable while the same interactive task ran. The task invokes `powershell.exe ... -WindowStyle Hidden` every five minutes under an interactive token; Windows Terminal hosting can therefore exist before the hidden state is applied. Desktop Spotlight also started at 20:35 but created no visible window in that capture. This makes the LM Studio task launcher the leading root cause of the black terminal flash, not MyBuddy or model loading. No task, Spotlight, MyBuddy, or LM Studio state was changed pending approval of a true no-console launcher correction.
 - After the user reported the same flash exactly at the 20:40 run and approved a launcher-only correction, the task XML was backed up and its action was changed to `run-ensure-local-models-no-console.exe`. The 5,632-byte PE32+ helper is Windows GUI subsystem 2, starts only the existing script with `CreateNoWindow = true`, waits, logs, and returns the child exit code. A forced task run and the natural 21:00 run both returned `0`; the 20 ms natural-boundary watcher recorded 17 process starts and zero visible windows, with no PowerShell or Windows Terminal process in the relevant set. `instruct` remained Qwen3.6 35B at 65,536 context and `autocomplete` remained Qwen2.5 Coder 3B at 8,192. Five-minute cadence and LM Studio persistence are unchanged.
 - Verification: 107 TypeScript tests, 20 Rust unit tests, 3 orb-safety tests, Cargo check, frontend build, diff check, canonical Tauri packaging, Codex smoke, and live Settings inspection.
 

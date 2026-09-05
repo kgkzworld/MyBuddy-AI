@@ -1,5 +1,11 @@
 # AI-Agent Playbook
 
+## Keep every checkout and installation relocatable
+
+- Resolve repository assets from the repository root, script location, packaged resource directory, or an explicit environment variable/argument. Never copy a developer checkout, home directory, vault root, or installed-program location into tracked content.
+- Treat the configured Git remote as operational state. Do not encode a hosting account, clone URL, or repository visibility in source or documentation; use `<repository-url>` when an operator must supply one.
+- Runtime probes for installed applications must derive candidate roots from platform APIs or environment variables. Smoke tests use the current checkout at runtime, and test fixtures use synthetic values rather than workstation paths.
+
 ## Preserve follow-up context until the user clears it — ADA-080
 
 - Every composer submission is part of the current conversation unless the user selects **Clear**. Send up to eight prior user/assistant messages, bounded to 2,000 characters each, with explicit roles to the same selected provider.

@@ -699,7 +699,10 @@ mod tests {
     #[test]
     fn privacy_blocks_sensitive_window_metadata_before_capture() {
         assert!(!privacy_allows("1Password.exe", "Vault"));
-        assert!(privacy_allows("WindowsTerminal.exe", "pwsh in kgkzworld"));
+        assert!(privacy_allows(
+            "WindowsTerminal.exe",
+            "pwsh in developer-shell"
+        ));
     }
 
     #[test]

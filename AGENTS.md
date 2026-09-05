@@ -17,7 +17,7 @@ Read before changes:
 7. `docs/INSTALL.md` for installation work
 8. `docs/AI-INSTALL.md` for AI-assisted deployment
 
-The canonical source repository is `D:\Source\Dev\Git\Pub\MyBuddy-AI` after the repository relocation milestone. The former `D:\Source\ambient-desktop-agent` path is a compatibility/handoff copy, not the long-term Git location.
+Treat the directory containing this file as the repository root. Resolve every project file relative to that root; never encode a developer checkout, user profile, vault location, or repository host/visibility in tracked content.
 
 ## Development rules
 

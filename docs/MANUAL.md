@@ -58,7 +58,7 @@
 
 ## Largest files under a local folder — ADA-069
 
-- Ask directly, for example: `get me a list of the 5 largest files under D:\Source`.
+- Ask directly and name the folder you want inspected, for example: `get me a list of the 5 largest files under <folder>`.
 - MBAI reads filesystem metadata only. If the exact directory is absent and exactly one sibling directory is one edit away, it discloses that correction and proceeds; otherwise it reports the grounded path error without silently choosing another root.
 
 ## Natural resource-question phrasing — ADA-068
@@ -220,7 +220,7 @@ cargo --version
 ## Install project dependencies
 
 ```powershell
-cd D:\Source\Dev\Git\Pub\MyBuddy-AI
+# Open PowerShell in the repository root first.
 $env:NODE_ENV = "development"
 npm install --include=dev
 ```

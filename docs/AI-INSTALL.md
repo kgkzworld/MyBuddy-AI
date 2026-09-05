@@ -1,6 +1,6 @@
 # AI-Assisted MyBuddy-AI Installation Playbook
 
-Canonical private source: `https://github.com/kgkzworld/MyBuddy-AI.git`. Confirm the operator has repository access before cloning; never request or expose their GitHub credential.
+Use the repository URL supplied by the operator or the current checkout's configured remote. Never infer repository hosting or visibility, and never request or expose credentials.
 
 Use this workflow when a user asks an equipped AI agent to install MyBuddy-AI. The goal is a verified native installation, not a list of commands or a claim based only on a successful build.
 
@@ -27,7 +27,7 @@ Installing developer prerequisites, changing package-manager state, configuring 
 9. Build the native artifact only on its target OS:
    - Windows: `scripts/install-mybuddy.ps1 -BuildBundle`
    - macOS/Linux: `scripts/install-mybuddy.sh --build`
-10. Inspect the produced platform directory and record the exact artifact path. For public macOS delivery, verify signing and notarization; do not bypass Gatekeeper.
+10. Inspect the produced platform directory and record its repository-relative artifact path. For distribution outside the local machine, verify macOS signing and notarization; do not bypass Gatekeeper.
 11. Ask for approval to launch/install the exact artifact. Then use `-Install` or `--install`, or visibly walk the user through the click path in `docs/INSTALL.md` when they requested a demonstration rather than autonomous execution.
 12. After the installer exits, read back the installed application target and launch only if included in the approved scope. Confirm the MyBuddy-AI process/window belongs to that installed target and the composer is usable.
 13. Run `hermes doctor`; run `python harness/scripts/install_harness.py --profile NAME`; verify `master-vault`, `composio-gmail`, and `youtube-to-vault` are discovered. Configure machine-local credentials and `OBSIDIAN_VAULT_PATH` only with the user's explicit values and normal provider setup.

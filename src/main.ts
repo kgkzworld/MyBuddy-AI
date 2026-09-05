@@ -1614,8 +1614,8 @@ void listen("smoke-top-memory-application-status", () => {
   messageInput.value = "can you give me the top 3 apps that use the most memory";
   messageForm.requestSubmit();
 });
-void listen("smoke-largest-files-status", () => {
-  messageInput.value = "get me a list of the 5 largest files under d:\\souce";
+void listen<string>("smoke-largest-files-status", ({ payload }) => {
+  messageInput.value = `get me a list of the 5 largest files under "${payload}"`;
   messageForm.requestSubmit();
 });
 void listen("smoke-notepad-story-request", () => {

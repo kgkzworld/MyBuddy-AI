@@ -26,7 +26,7 @@ Capture a complete timestamped YouTube caption transcript as a durable Obsidian 
 uv run --with youtube-transcript-api python "$MBAI_HARNESS_PATH/skills/youtube-to-vault/scripts/capture_youtube_to_vault.py" "YOUTUBE_URL" --destination "010_Personal/035_Knowledge_Base/Topic/Title.md"
 ```
 
-If `MBAI_HARNESS_PATH` is unavailable in a source checkout, resolve the script relative to the repository `harness/` directory. On Windows, native Python accepts `C:/...` paths; on macOS/Linux, use the normal POSIX path.
+If `MBAI_HARNESS_PATH` is unavailable in a source checkout, resolve the script relative to the repository `harness/` directory. Pass the resulting platform-native path to Python without replacing it with a fixed workstation location.
 
 6. Treat only JSON output with `status: saved-and-verified` as completion. Read back the exact destination and confirm the source video ID, title, transcript heading, segment count, and final timestamp are present before reporting success.
 7. Report the concrete saved path. Do not claim success after transcript retrieval alone.

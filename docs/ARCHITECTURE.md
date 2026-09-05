@@ -1,5 +1,9 @@
 # Architecture
 
+## Relocatable repository and machine boundaries
+
+All project assets are addressed relative to the repository root during development and relative to the packaged resource root after installation. Machine-owned locations—user profiles, application installation roots, vaults, credentials, and provider state—are discovered from platform APIs, environment variables, or explicit operator input. The configured Git remote is not a runtime dependency, and tracked files do not encode its host, owner, clone URL, or visibility.
+
 ## Bounded provider continuity and explicit new-conversation boundary — ADA-080
 
 The composer owns one process-local `ConversationContext` capped at eight role-labelled messages and 2,000 characters per message. Before recording a new user turn, the frontend snapshots the prior window and supplies it with ordinary selected-provider completion calls. Native code validates roles, re-bounds the payload, serializes the recent exchange as delimited context, and leaves the current user request last. Empty history preserves the original one-shot prompt exactly.

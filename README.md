@@ -2,8 +2,6 @@
 
 A local-first desktop assistant and visual interface to a selected equipped Codex, Claude, Qwen, or Hermes runtime. It observes privacy-approved active-window metadata, detects simple struggle patterns, renders help as Adaptive Cards, and exposes bounded local/visual capabilities where MBAI—not the selected model—must mediate the desktop. The source folder and internal application identifier retain their original names for compatibility.
 
-Private canonical GitHub repository: <https://github.com/kgkzworld/MyBuddy-AI>
-
 The name and companion-first product idea are inspired by the 1980s [My Buddy commercial](https://www.youtube.com/watch?v=OdximU6Ao00): give AI a friendly face that stays close, is quick to reach, answers, teaches, and helps. This project is not affiliated with the toy brand and does not reuse its character, music, or artwork.
 
 ## Current safety boundary
@@ -36,7 +34,7 @@ python .\harness\scripts\install_harness.py
 Launch the built 0.1.6 executable directly:
 
 ```powershell
-& "D:/Source/Dev/Git/Pub/MyBuddy-AI/src-tauri/target/release/ambient-desktop-agent.exe"
+& "./src-tauri/target/release/ambient-desktop-agent.exe"
 ```
 
 The application starts with a small native circular orb and a notification-area icon. The orb remains always on top without accepting keyboard focus. Automatic suggestions use a separate opaque, non-topmost WebView window shown with Win32 no-activation flags so the current application keeps focus. It is not configured to launch at sign-in.
