@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "workflows": [
+    {
+      "id": "important-email-list",
+      "intent": "List important Gmail messages for a user-specified time window.",
+      "skills": ["composio-gmail", "email-inbox-triage"],
+      "mode": "read-only",
+      "computerUseFallback": false,
+      "verification": ["runtime skill loaded", "email helper invoked", "no capability refusal"]
+    },
+    {
+      "id": "vault-todo-list",
+      "intent": "Find TODO items in the configured Obsidian vault.",
+      "skills": ["master-vault", "obsidian"],
+      "mode": "read-only",
+      "computerUseFallback": false,
+      "verification": ["vault routing rules read", "scoped search performed", "no capability refusal"]
+    },
+    {
+      "id": "youtube-transcript-to-vault",
+      "intent": "Fetch a complete timestamped YouTube transcript and save it to a user-requested vault knowledge base.",
+      "skills": ["youtube-to-vault", "master-vault", "obsidian", "youtube-content"],
+      "mode": "write-requested",
+      "computerUseFallback": false,
+      "verification": [
+        "vault routing rules read",
+        "video identity and caption structure validated",
+        "note atomically saved",
+        "exact destination read back"
+      ]
+    }
+  ]
+}

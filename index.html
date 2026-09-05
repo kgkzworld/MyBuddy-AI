@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyBuddy-AI</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <main id="app" aria-live="polite">
+      <section id="panel" class="panel thought-bubble">
+        <header class="panel-header" data-tauri-drag-region>
+          <div class="bubble-identity">
+            <span class="buddy-voice-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <div>
+              <p class="eyebrow">MYBUDDY-AI</p>
+              <p id="mode-label" class="mode-label">Ready to help</p>
+            </div>
+          </div>
+          <div class="header-actions">
+            <span id="status-dot" class="status-dot" aria-label="Agent status"></span>
+            <button id="clear-conversation" class="text-button" type="button" aria-label="Clear conversation and start over" title="Clear conversation and start over">Clear</button>
+            <button id="activity-log-button" class="text-button" type="button" aria-expanded="false" aria-controls="activity-panel">Live log</button>
+            <button id="cancel-request" class="text-button danger" type="button" hidden>Cancel</button>
+            <button id="settings-button" class="icon-button" aria-label="Settings">⚙</button>
+            <button id="collapse" class="icon-button" aria-label="Minimize to orb" title="Minimize to orb">—</button>
+          </div>
+        </header>
+        <div id="card-host"></div>
+        <section id="activity-panel" class="activity-panel" aria-label="Live request activity" hidden>
+          <div class="activity-heading">
+            <strong>Live activity</strong>
+            <span>Safe status only</span>
+          </div>
+          <ol id="activity-log" aria-live="polite"></ol>
+        </section>
+        <footer class="panel-footer">
+          <form id="message-form" class="message-form">
+            <label class="sr-only" for="message-input">Ask MyBuddy-AI</label>
+            <input
+              id="message-input"
+              type="text"
+              maxlength="500"
+              autocomplete="off"
+              placeholder="Ask a question or describe what you want me to do…"
+            />
+            <button id="message-send" type="submit">Send</button>
+          </form>
+          <div class="footer-meta">
+            <span id="privacy-label">Local text · metadata only · no screenshots</span>
+            <span id="runtime-label">Checking Qwen…</span>
+          </div>
+        </footer>
+        <div class="thought-trail" aria-hidden="true">
+          <span class="thought-dot"></span>
+          <span class="thought-dot"></span>
+          <span class="thought-dot"></span>
+        </div>
+      </section>
+      <dialog id="settings-dialog" aria-labelledby="settings-title">
+        <form method="dialog" class="settings-form">
+          <header class="settings-header">
+            <div>
+              <p class="eyebrow">MYBUDDY-AI</p>
+              <h2 id="settings-title">Settings</h2>
+            </div>
+            <button id="settings-close" class="icon-button" value="close" aria-label="Close settings">×</button>
+          </header>
+          <section class="settings-section">
+            <div>
+              <h3>Orb profile image</h3>
+              <p>Choose from the local bundled avatar catalog. The image never leaves this computer.</p>
+            </div>
+            <img id="avatar-preview" alt="Selected orb profile" />
+            <label for="avatar-select">Profile image</label>
+            <select id="avatar-select"></select>
+          </section>
+          <section class="settings-section provider-settings">
+            <div>
+              <h3>Model provider</h3>
+              <p>Local LM Studio is the default. CLI routes inherit that CLI's configured tools and permission policy. API keys are stored in Windows Credential Manager and never displayed again.</p>
+            </div>
+            <label for="provider-select">Provider</label>
+            <select id="provider-select">
+              <option value="lm-studio">LM Studio (local)</option>
+              <option value="openai-compatible">OpenAI-compatible HTTP</option>
+              <option value="codex-cli">Codex agent (Hermes profile)</option>
+              <option value="claude-cli">Claude agent (Hermes profile)</option>
+              <option value="qwen-cli">Qwen agent (Hermes profile)</option>
+              <option value="continue-cli">Continue CLI</option>
+              <option value="hermes-cli">Hermes CLI</option>
+              <option value="opencode-cli">OpenCode CLI</option>
+              <option value="antigravity-cli">Antigravity CLI</option>
+            </select>
+            <p id="provider-availability" role="status">Detecting installed CLI providers…</p>
+            <label for="provider-endpoint">Endpoint</label>
+            <input id="provider-endpoint" type="url" autocomplete="off" spellcheck="false" />
+            <label for="provider-chat-model">Chat model</label>
+            <input id="provider-chat-model" type="text" maxlength="160" autocomplete="off" />
+            <label for="provider-analysis-model">Analysis model</label>
+            <input id="provider-analysis-model" type="text" maxlength="160" autocomplete="off" />
+            <label for="provider-api-key">API key (leave blank to keep the stored key)</label>
+            <input id="provider-api-key" type="password" autocomplete="new-password" />
+            <button id="provider-save-test" type="button">Save and test</button>
+            <p id="provider-test-result" role="status"></p>
+          </section>
+          <section class="settings-section capability-grants">
+            <div>
+              <h3>Remembered action approvals</h3>
+              <p>Only code-fixed actions can be remembered. Review usage and revoke any approval here.</p>
+            </div>
+            <div id="capability-grant-list" aria-live="polite"></div>
+          </section>
+        </form>
+      </dialog>
+    </main>
+  </body>
+</html>

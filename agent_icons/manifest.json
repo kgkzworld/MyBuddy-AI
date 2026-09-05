@@ -1,0 +1,790 @@
+{
+  "default_avatar": "friendly-blue-orb-bot",
+  "count": 78,
+  "avatars": [
+    {
+      "id": "blue-window-bot",
+      "display_name": "Blue Window Bot",
+      "file": "all/blue-window-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "03481fcdbac866b0960f52ab8f943125c201faabdfc396d871048d22f77ac925",
+      "default": false
+    },
+    {
+      "id": "waving-blue-assistant",
+      "display_name": "Waving Blue Assistant",
+      "file": "all/waving-blue-assistant.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "09c766e3d61395eb9c74462aa9fd5ff3341dd6f3f2133449de31c45c7110290f",
+      "default": false
+    },
+    {
+      "id": "white-helmet-dashboard-bot",
+      "display_name": "White Helmet Dashboard Bot",
+      "file": "all/white-helmet-dashboard-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "0d2273939858033bfa79e842fe6b3105b2d08ec1cce6bf4653b4f52df85cc13c",
+      "default": false
+    },
+    {
+      "id": "blue-tech-operator",
+      "display_name": "Blue Tech Operator",
+      "file": "all/blue-tech-operator.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "0e006a96c6a551499a49bebdaaf67adb45d2fc59ce1813b9df11a1571a807604",
+      "default": false
+    },
+    {
+      "id": "amber-honeycomb-bot",
+      "display_name": "Amber Honeycomb Bot",
+      "file": "all/amber-honeycomb-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "1a367110881d40fbfa2e53bafa4609bd08fc8a0358db9546d45a1bee2305c5cc",
+      "default": false
+    },
+    {
+      "id": "green-security-mechanic",
+      "display_name": "Green Security Mechanic",
+      "file": "all/green-security-mechanic.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "1b5e6de6e071f95c78f1770366837af3f226846990faddb272dc81a3208151ef",
+      "default": false
+    },
+    {
+      "id": "scholarly-book-bot",
+      "display_name": "Scholarly Book Bot",
+      "file": "all/scholarly-book-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "1ba3fd29ff04461f9195135d39db34377edcebce8793a5683ce4d184aa07ab8a",
+      "default": false
+    },
+    {
+      "id": "green-research-bot",
+      "display_name": "Green Research Bot",
+      "file": "all/green-research-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "1e7ef633653a9f278d1f0b29b14626271f33474d20b53a3bd906aa150c61458e",
+      "default": false
+    },
+    {
+      "id": "friendly-blue-orb-bot",
+      "display_name": "Friendly Blue Orb Bot",
+      "file": "all/friendly-blue-orb-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "0c66ecdfc9c86397a6b17a3bca2f7c950023edfe6553d7181c741069090b1afa",
+      "default": true,
+      "original_sha256": "261ecaa3a70c66e67a920548819315d6953935b922dd4f72895f49d4e62def71"
+    },
+    {
+      "id": "blue-shield-bot",
+      "display_name": "Blue Shield Bot",
+      "file": "all/blue-shield-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "266bc49bf1f7926d46bdfdb4534a75f7e0d69dfb1ac319d3eb54773ad0f128ec",
+      "default": false
+    },
+    {
+      "id": "green-tactical-bot",
+      "display_name": "Green Tactical Bot",
+      "file": "all/green-tactical-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "2b543c2399646da82ba2803335caf2055f870cc3c27f6d70ac42d53ad8a36b10",
+      "default": false
+    },
+    {
+      "id": "blue-system-monitor",
+      "display_name": "Blue System Monitor",
+      "file": "all/blue-system-monitor.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "2dbec6c83bceec7c225341e9858ff32d54875dbecbff2d81bdfac1a3ae84d697",
+      "default": false
+    },
+    {
+      "id": "blue-network-analyst",
+      "display_name": "Blue Network Analyst",
+      "file": "all/blue-network-analyst.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "2ecf0f6e4cbc3d89454dad2a9d726f401bd3bb2531f7b42f0b62d3b38a8543d8",
+      "default": false
+    },
+    {
+      "id": "pastel-productivity-bot",
+      "display_name": "Pastel Productivity Bot",
+      "file": "all/pastel-productivity-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "2fadb1d79750bfb5b8ea1174cccf719f85d295ce0f8065356c4599aa72b8a12e",
+      "default": false
+    },
+    {
+      "id": "purple-network-bot",
+      "display_name": "Purple Network Bot",
+      "file": "all/purple-network-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "35bfb1df9afc5457514c6e68e21ae261e4662c2e1cbf8e02eab7b22bf8161653",
+      "default": false
+    },
+    {
+      "id": "teal-radar-bot",
+      "display_name": "Teal Radar Bot",
+      "file": "all/teal-radar-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "37656cdd168e8afeea548656d7c3725d34ec86dc7cb8233f821e36bc708054d2",
+      "default": false
+    },
+    {
+      "id": "blue-cloud-bot",
+      "display_name": "Blue Cloud Bot",
+      "file": "all/blue-cloud-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "3dd8ff145c34b9779124116bd0da13db55ab14b183fcbc9708ee6a4e2db5a114",
+      "default": false
+    },
+    {
+      "id": "green-security-lab-bot",
+      "display_name": "Green Security Lab Bot",
+      "file": "all/green-security-lab-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "3eaeb05e40d1867457064442e3b05d84569fcdcf6eae6b7f4a9577710c00098d",
+      "default": false
+    },
+    {
+      "id": "dark-security-bot",
+      "display_name": "Dark Security Bot",
+      "file": "all/dark-security-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "44886dd9266aa6b6f5d2d1a7c577c9b0d92458c9b660d5e95d45903535febc24",
+      "default": false
+    },
+    {
+      "id": "teal-cyber-guardian",
+      "display_name": "Teal Cyber Guardian",
+      "file": "all/teal-cyber-guardian.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGBA",
+      "sha256": "e0660fe878845cd74611802611f06abf0a5960907ac5ab66632b561f38719711",
+      "default": false,
+      "original_sha256": "462fc599682c239cf5ddd70a9560cc31d712224f63a0053748b930c98c9056f4"
+    },
+    {
+      "id": "green-lab-assistant",
+      "display_name": "Green Lab Assistant",
+      "file": "all/green-lab-assistant.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "4757557f0a7b929003574e1ccbd1ed659d94f0bd86cfccfdca6c7ef7ab68f7a9",
+      "default": false
+    },
+    {
+      "id": "blue-windows-helper",
+      "display_name": "Blue Windows Helper",
+      "file": "all/blue-windows-helper.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "4a5cffd6fac01b74c78cab73bdcdb21f11fae9459fa4dc9b24819c62a27827e5",
+      "default": false
+    },
+    {
+      "id": "amber-mage-bot",
+      "display_name": "Amber Mage Bot",
+      "file": "all/amber-mage-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "4d6a208baacc75b9118b56eb2dc996d93fe7463a04ee692a354e541af37b0cf5",
+      "default": false
+    },
+    {
+      "id": "woodland-explorer-bot",
+      "display_name": "Woodland Explorer Bot",
+      "file": "all/woodland-explorer-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "52362524d8422789d2b02b43d015c82df5d89416308082fd9a3e034e8db8cf65",
+      "default": false
+    },
+    {
+      "id": "broadcast-host-bot",
+      "display_name": "Broadcast Host Bot",
+      "file": "all/broadcast-host-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "54a798ae7741476f604249fc3af6cf55373c5a885a91a81e8b0e7f354873b450",
+      "default": false
+    },
+    {
+      "id": "blue-laptop-bot",
+      "display_name": "Blue Laptop Bot",
+      "file": "all/blue-laptop-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "56309b260e3b830f882b5f7fccc27a4847211ea34544d1ff291b0fb2234d7892",
+      "default": false
+    },
+    {
+      "id": "green-eco-analyst",
+      "display_name": "Green Eco Analyst",
+      "file": "all/green-eco-analyst.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "5f349941a2b8bebb955f1435cd84c73ed0f22de81474da83d1669dbf4c7c04f8",
+      "default": false
+    },
+    {
+      "id": "blue-data-assistant",
+      "display_name": "Blue Data Assistant",
+      "file": "all/blue-data-assistant.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "66c1caf94cd99a2326b42d3e232c324c96cc836c6406cd54068c0a19fd3cbe7b",
+      "default": false
+    },
+    {
+      "id": "green-chemistry-bot",
+      "display_name": "Green Chemistry Bot",
+      "file": "all/green-chemistry-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "6cc3b8b1f8b4a05221323aa2f6b7f91b2d93ee9f413e2a43de9ee3a52e202c5e",
+      "default": false
+    },
+    {
+      "id": "arctic-research-bot",
+      "display_name": "Arctic Research Bot",
+      "file": "all/arctic-research-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "6d57d5ed0ad63a9a2389dda9d131a29ea6e91df0da83d02af3d6a248d158add3",
+      "default": false
+    },
+    {
+      "id": "green-field-scientist",
+      "display_name": "Green Field Scientist",
+      "file": "all/green-field-scientist.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "6f52a4275efbe5f18fe5965505c7a655bb3462ee410bbff67fb299758b3c2ae4",
+      "default": false
+    },
+    {
+      "id": "green-orb-researcher",
+      "display_name": "Green Orb Researcher",
+      "file": "all/green-orb-researcher.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "75b4c8d91772f2bf35d5c1ff118a1448828a5ce6e861dad68622d1ce2420aff2",
+      "default": false
+    },
+    {
+      "id": "green-cyber-wizard",
+      "display_name": "Green Cyber Wizard",
+      "file": "all/green-cyber-wizard.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "76817720b7517cbbbeb5630fe81f649dca0c23089ccc00da081859209e8b14ff",
+      "default": false
+    },
+    {
+      "id": "pastel-creative-bot",
+      "display_name": "Pastel Creative Bot",
+      "file": "all/pastel-creative-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "7d45bed8fb18c86103e94436f23dae94395175a2bf7c908a350ff50915e252bc",
+      "default": false
+    },
+    {
+      "id": "gold-business-assistant",
+      "display_name": "Gold Business Assistant",
+      "file": "all/gold-business-assistant.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "8137451092b193c0596894ce6d8d8983c9e3670b67248f0395ad9181080f3a61",
+      "default": false
+    },
+    {
+      "id": "orange-office-host",
+      "display_name": "Orange Office Host",
+      "file": "all/orange-office-host.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "81e0cf055533c299cb3c7fff53346a0f8373e360ed2a5381f9fd3d4a66f2bb6a",
+      "default": false
+    },
+    {
+      "id": "blue-toolbox-bot",
+      "display_name": "Blue Toolbox Bot",
+      "file": "all/blue-toolbox-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "83053e918ab85368bb07d1a8a164b6824c950f7ab24159095902343372082758",
+      "default": false
+    },
+    {
+      "id": "lavender-code-bot",
+      "display_name": "Lavender Code Bot",
+      "file": "all/lavender-code-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "8c6cdd8260a53aa23ccd809828361e0daac13b8c0bd14572da2053bcc8747e8f",
+      "default": false
+    },
+    {
+      "id": "blue-security-engineer",
+      "display_name": "Blue Security Engineer",
+      "file": "all/blue-security-engineer.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "900a855a4ff6a90ae5a706ddc4ea42ad0bc0d089c4b6b0c3e3a70c1ae06136fc",
+      "default": false
+    },
+    {
+      "id": "purple-executive-bot",
+      "display_name": "Purple Executive Bot",
+      "file": "all/purple-executive-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "937773e06b0d22c82f65698e7e4d7f09bdfe76d6566f3dd49a8e0adc7de41595",
+      "default": false
+    },
+    {
+      "id": "silver-tool-bot",
+      "display_name": "Silver Tool Bot",
+      "file": "all/silver-tool-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "95211401c8b86414a05bce28675d159b613a972fa0b214e8e4f622c074ec4d07",
+      "default": false
+    },
+    {
+      "id": "orange-industrial-bot",
+      "display_name": "Orange Industrial Bot",
+      "file": "all/orange-industrial-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "9603275438288393c348219bd3e4741b9f1df1429c286fb320c07f991cd3b8b6",
+      "default": false
+    },
+    {
+      "id": "cream-document-bot",
+      "display_name": "Cream Document Bot",
+      "file": "all/cream-document-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "9bd22ad51e189382a2f29f45a2773d6e03ab13dd56e077ac3e958ce9fed949cc",
+      "default": false
+    },
+    {
+      "id": "lime-systems-bot",
+      "display_name": "Lime Systems Bot",
+      "file": "all/lime-systems-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "a1087310444da7a400e1a719a85b9ddaea2b0475739f415e9d6bf5a25e157f81",
+      "default": false
+    },
+    {
+      "id": "blue-thumbs-up-bot",
+      "display_name": "Blue Thumbs Up Bot",
+      "file": "all/blue-thumbs-up-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "a2a1d8b85d98ce1ae25a69956632daa87f6649b24d99c128e59ea087b3f9bc7a",
+      "default": false
+    },
+    {
+      "id": "purple-helpful-bot",
+      "display_name": "Purple Helpful Bot",
+      "file": "all/purple-helpful-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "af4e15301014232d1347ee18b6cd8b727af4fce6682a8197590488198c844acf",
+      "default": false
+    },
+    {
+      "id": "blue-shield-assistant",
+      "display_name": "Blue Shield Assistant",
+      "file": "all/blue-shield-assistant.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "b11ea21ef6d8d8717bb03f5848968c594a50be6571ebda990531cb7abc1822c9",
+      "default": false
+    },
+    {
+      "id": "cream-office-bot",
+      "display_name": "Cream Office Bot",
+      "file": "all/cream-office-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "bb8b8fe9ee2a2de4aae1c118bbeb5d2060d0f6c749e4e9efa58577865ee7bff5",
+      "default": false
+    },
+    {
+      "id": "green-console-operator",
+      "display_name": "Green Console Operator",
+      "file": "all/green-console-operator.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "bc6c4e1967d0d1bd590a3bd3650fe2df2fe3e661057ac8fb5fa8f85e1ae9f3a9",
+      "default": false
+    },
+    {
+      "id": "green-cyber-mage",
+      "display_name": "Green Cyber Mage",
+      "file": "all/green-cyber-mage.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "c8ccebafdac88993f9c71bc2a7841232f7ae64fa93634d9a5f24093197359188",
+      "default": false
+    },
+    {
+      "id": "vintage-library-bot",
+      "display_name": "Vintage Library Bot",
+      "file": "all/vintage-library-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "c98f71fe4e0b5643317ed361f67017a1d79929cd6e2d8c26f0afe18e565230b7",
+      "default": false
+    },
+    {
+      "id": "green-lab-technician",
+      "display_name": "Green Lab Technician",
+      "file": "all/green-lab-technician.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "ca2653d2793f87d3b2509bb7d964304cc853b5f7962f48a5edecb4002e518079",
+      "default": false
+    },
+    {
+      "id": "blue-dashboard-bot",
+      "display_name": "Blue Dashboard Bot",
+      "file": "all/blue-dashboard-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "ca3437503db9429bee3d3ecbbb429b77123d58fdc4b2b86dbe50980c983f4d36",
+      "default": false
+    },
+    {
+      "id": "yellow-screen-bot",
+      "display_name": "Yellow Screen Bot",
+      "file": "all/yellow-screen-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "cc888a29cb8beeca7e7f3d5f632a1e8f5feb8bb2585013ef01442325da233da1",
+      "default": false
+    },
+    {
+      "id": "green-desk-operator",
+      "display_name": "Green Desk Operator",
+      "file": "all/green-desk-operator.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "d3140c217df35990d6a3ed49a15e62b27991afdda411d3dc81aa07915b11df33",
+      "default": false
+    },
+    {
+      "id": "green-security-analyst",
+      "display_name": "Green Security Analyst",
+      "file": "all/green-security-analyst.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "d9504ad745bc16b56f817092dcd6281e0d7b2f9c61192d4dc9cbc03c9d9433ee",
+      "default": false
+    },
+    {
+      "id": "blue-settings-bot",
+      "display_name": "Blue Settings Bot",
+      "file": "all/blue-settings-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "da5fe53607b7656e5dbbc1cc7b48ed0d4263f7382337e99d364389b8e56d71b8",
+      "default": false
+    },
+    {
+      "id": "green-data-scientist",
+      "display_name": "Green Data Scientist",
+      "file": "all/green-data-scientist.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "dd344ce46bfc99c254d685d04d45cf2552ef290f9bbd5f55c3b68b1fb5f02df2",
+      "default": false
+    },
+    {
+      "id": "friendly-blue-helper",
+      "display_name": "Friendly Blue Helper",
+      "file": "all/friendly-blue-helper.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "de576a770da530e3732c4425c8af5f8d988cba49e4161fda5398040d814df922",
+      "default": false
+    },
+    {
+      "id": "blue-tablet-bot",
+      "display_name": "Blue Tablet Bot",
+      "file": "all/blue-tablet-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "e1472659c331d033a73ac2aa71a182a1d021725bd36c081e2ebef07630d4a0b7",
+      "default": false
+    },
+    {
+      "id": "green-security-guide",
+      "display_name": "Green Security Guide",
+      "file": "all/green-security-guide.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "e19b7a5a28a6d5355f6be2febdb9d4992fe273fb82a77594fb7e3440aed8fa75",
+      "default": false
+    },
+    {
+      "id": "navy-gentleman-bot",
+      "display_name": "Navy Gentleman Bot",
+      "file": "all/navy-gentleman-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "9d9e50b4b032fb30aab667a3f4900ed049e5cd48a37d08bfd1936925deca9dac",
+      "default": false,
+      "original_sha256": "e97d35e7e0c734f87581d9957cbcd6333fd1fc84e2b60c00a8e51e17f95a64f9"
+    },
+    {
+      "id": "coral-space-guide",
+      "display_name": "Coral Space Guide",
+      "file": "all/coral-space-guide.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "e9c6bb1cd1a52abac4c9f31500120c86fb178f4e7bb6f55328265d639825ee7b",
+      "default": false
+    },
+    {
+      "id": "green-targeting-bot",
+      "display_name": "Green Targeting Bot",
+      "file": "all/green-targeting-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "ea997717ab7e5a2dfe0171ea7e159eacf3570b7c41252691c27d5091d27fadcc",
+      "default": false
+    },
+    {
+      "id": "blue-analytics-bot",
+      "display_name": "Blue Analytics Bot",
+      "file": "all/blue-analytics-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "ee5c821eb791250dedf0e7a49a2c78231a89ecb95fd9dc40e5db8e2b8f41828f",
+      "default": false
+    },
+    {
+      "id": "green-command-bot",
+      "display_name": "Green Command Bot",
+      "file": "all/green-command-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f27133a66f14ed4af4aad360674a139ecb0aa6ec2a08630506a653a4037f163c",
+      "default": false
+    },
+    {
+      "id": "brass-archive-bot",
+      "display_name": "Brass Archive Bot",
+      "file": "all/brass-archive-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f38411d0c133a222b72401165e241247013bc381b839007986d7de5356497b50",
+      "default": false
+    },
+    {
+      "id": "blue-shield-guardian",
+      "display_name": "Blue Shield Guardian",
+      "file": "all/blue-shield-guardian.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f45b5e28fae1dc6d82d4c0fcbc5c334613479b7b4f288ff70567f6bff2fafb15",
+      "default": false
+    },
+    {
+      "id": "green-system-operator",
+      "display_name": "Green System Operator",
+      "file": "all/green-system-operator.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f4b3b62497ec60100127fb8df6a1254e5b3db1878d1de6a140667b28fed88316",
+      "default": false
+    },
+    {
+      "id": "gold-treasure-bot",
+      "display_name": "Gold Treasure Bot",
+      "file": "all/gold-treasure-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f5430ab43a820d5e4a25e91a1dc08e0c6284d7c33e8753efdb56604dc8a14c33",
+      "default": false
+    },
+    {
+      "id": "green-learning-guide",
+      "display_name": "Green Learning Guide",
+      "file": "all/green-learning-guide.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f6cad376c897a1a881abec668d48df1eccf6eef3ed2dfe4474e5399e3533ced7",
+      "default": false
+    },
+    {
+      "id": "lavender-learning-bot",
+      "display_name": "Lavender Learning Bot",
+      "file": "all/lavender-learning-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f716fe537ddae0dadb062f3c7c065165961b1a20b1aec1384d9204aeec088085",
+      "default": false
+    },
+    {
+      "id": "blue-enterprise-bot",
+      "display_name": "Blue Enterprise Bot",
+      "file": "all/blue-enterprise-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f7219abf150984c197da20cd27b5a4fef43bd9d2654ad9b142da4553b9ea96c5",
+      "default": false
+    },
+    {
+      "id": "blue-locksmith-bot",
+      "display_name": "Blue Locksmith Bot",
+      "file": "all/blue-locksmith-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "f88b5233bf225214eeff9202f87b8cc1670f9910928c7062e0aa7342e75367d4",
+      "default": false
+    },
+    {
+      "id": "bronze-book-bot",
+      "display_name": "Bronze Book Bot",
+      "file": "all/bronze-book-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "e71d857b31e0c4f07ee6f21f6ca1e0de980ec362d7cabd48b0675461b19c87da",
+      "default": false,
+      "original_sha256": "f9ae535243ac7d750324716a44b07bce4dc0d8814454a2cf9890da0fbcde9ab7"
+    },
+    {
+      "id": "blue-multitool-bot",
+      "display_name": "Blue Multitool Bot",
+      "file": "all/blue-multitool-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "fbd5af7abfeb69f164db1c033d3831dffa79dd2f40f9e4c1418966657d331c82",
+      "default": false
+    },
+    {
+      "id": "blue-cyber-guardian",
+      "display_name": "Blue Cyber Guardian",
+      "file": "all/blue-cyber-guardian.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "fc0c00ec352bc762ce695aba5333c3fe74d62ba3012612c837e33c460283318d",
+      "default": false
+    },
+    {
+      "id": "green-energy-bot",
+      "display_name": "Green Energy Bot",
+      "file": "all/green-energy-bot.png",
+      "width": 256,
+      "height": 256,
+      "mode": "RGB",
+      "sha256": "fd6d9b37e3fd3d62e03cc5f5b634c254cacfb66acf782ea5e321e9decfbb3204",
+      "default": false
+    }
+  ]
+}

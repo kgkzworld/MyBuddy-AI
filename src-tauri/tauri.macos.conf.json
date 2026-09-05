@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "app": {
+    "macOSPrivateApi": false,
+    "windows": [
+      {
+        "label": "main",
+        "title": "MyBuddy-AI",
+        "width": 430,
+        "height": 610,
+        "minWidth": 430,
+        "minHeight": 610,
+        "visible": false,
+        "resizable": false,
+        "decorations": false,
+        "transparent": false,
+        "alwaysOnTop": false,
+        "skipTaskbar": false,
+        "focus": false,
+        "shadow": true
+      }
+    ]
+  }
+}

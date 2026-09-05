@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "name": "mbai-harness",
+  "description": "Portable shared capabilities for MyBuddy-AI and its selected equipped-agent runtime.",
+  "environment": {
+    "root": "MBAI_HARNESS_PATH",
+    "vault": "OBSIDIAN_VAULT_PATH",
+    "gmailCredential": "COMPOSIO_API_KEY"
+  },
+  "directories": {
+    "skills": "skills",
+    "workflows": "workflows",
+    "cron": "cron"
+  },
+  "profiles": ["default", "hermescodex", "hermesclaude", "hermesqwen"],
+  "machineLocalState": [
+    "credentials",
+    "provider configuration",
+    "session history",
+    "approval state",
+    "live cron scheduler state"
+  ]
+}
