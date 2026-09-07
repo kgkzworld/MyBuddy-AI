@@ -196,9 +196,9 @@ const runtimeLabel = document.querySelector<HTMLElement>("#runtime-label")!;
 const messageForm = document.querySelector<HTMLFormElement>("#message-form")!;
 const messageInput = document.querySelector<HTMLInputElement>("#message-input")!;
 const messageSend = document.querySelector<HTMLButtonElement>("#message-send")!;
-const clearConversationButton = document.querySelector<HTMLButtonElement>("#clear-conversation")!;
 const cancelRequestButton = document.querySelector<HTMLButtonElement>("#cancel-request")!;
 const activityLogButton = document.querySelector<HTMLButtonElement>("#activity-log-button")!;
+const clearContextButton = document.querySelector<HTMLButtonElement>("#clear-context")!;
 const activityPanel = document.querySelector<HTMLElement>("#activity-panel")!;
 const activityLog = document.querySelector<HTMLOListElement>("#activity-log")!;
 const settingsButton = document.querySelector<HTMLButtonElement>("#settings-button")!;
@@ -214,6 +214,11 @@ const providerApiKey = document.querySelector<HTMLInputElement>("#provider-api-k
 const providerSaveTest = document.querySelector<HTMLButtonElement>("#provider-save-test")!;
 const providerTestResult = document.querySelector<HTMLElement>("#provider-test-result")!;
 const capabilityGrantList = document.querySelector<HTMLElement>("#capability-grant-list")!;
+const bubbleScaleSelect = document.querySelector<HTMLSelectElement>("#bubble-scale-select")!;
+const skillsPathInput = document.querySelector<HTMLInputElement>("#skills-path-input")!;
+const skillsPathSave = document.querySelector<HTMLButtonElement>("#skills-path-save")!;
+const verboseLogToggle = document.querySelector<HTMLInputElement>("#verbose-log-toggle")!;
+const verboseLogPath = document.querySelector<HTMLElement>("#verbose-log-path")!;
 
 const capabilityGrantStorageKey = "mybuddy-capability-grants";
 let providerAvailability = new Map<ProviderKind, ProviderAvailability>();
@@ -419,8 +424,6 @@ async function cancelCurrentRequest(): Promise<void> {
     cancelRequestButton.textContent = "Cancel";
     messageInput.disabled = false;
     messageSend.disabled = false;
-    clearConversationButton.disabled = false;
-    clearConversationButton.hidden = false;
     messageInput.focus();
   }
 }
@@ -555,6 +558,50 @@ function syncProviderControls(): void {
   providerSaveTest.disabled = availability?.installed === false;
 }
 
+function loadBubbleScaleSetting(): void {
+  const saved = localStorage.getItem("mybuddy-bubble-scale") ?? "1";
+  bubbleScaleSelect.value = saved;
+  applyBubbleScale(Number(saved));
+}
+
+function applyBubbleScale(scale: number): void {
+  invoke("set_orb_scale", { scale }).catch(() => {
+    recordEvent("orb-scale-failed", { scale });
+  });
+}
+
+function loadSkillsPathSetting(): void {
+  const saved = localStorage.getItem("mybuddy-skills-path") ?? "";
+  skillsPathInput.value = saved;
+}
+
+function saveSkillsPath(): void {
+  const path = skillsPathInput.value.trim();
+  localStorage.setItem("mybuddy-skills-path", path);
+  recordEvent("skills-path-saved", { path });
+}
+
+function isVerboseLoggingEnabled(): boolean {
+  return localStorage.getItem("mybuddy-verbose-log") === "true";
+}
+
+function loadVerboseLogSetting(): void {
+  verboseLogToggle.checked = isVerboseLoggingEnabled();
+  void invoke<string>("get_conversation_log_path").then((path) => {
+    verboseLogPath.textContent = verboseLogToggle.checked ? `Log: ${path}` : "";
+  }).catch(() => undefined);
+}
+
+function logConversation(role: string, content: string, requestId?: string): void {
+  if (!isVerboseLoggingEnabled()) return;
+  void invoke("append_conversation_log", {
+    role,
+    content,
+    requestId: requestId ?? null,
+    provider: providerSelect.value,
+  }).catch(() => undefined);
+}
+
 async function loadProviderSettings(): Promise<void> {
   const [settings, availability] = await Promise.all([
     invoke<ProviderSettingsView>("get_provider_settings"),
@@ -637,18 +684,6 @@ function clearCardForNewRequest(): void {
   modeLabel.textContent = "Selected AI agent is working…";
 }
 
-function clearConversation(): void {
-  if (requestLifecycle.activeRequestId()) return;
-  conversationContext.clear();
-  pendingComputerUseApproval = null;
-  pendingAgentToolApproval = null;
-  messageInput.value = "";
-  renderCard(statusCard());
-  modeLabel.textContent = "New conversation";
-  recordEvent("conversation-cleared", {});
-  messageInput.focus();
-}
-
 async function executeFixedCapability(capability: TakeoverCapability): Promise<void> {
   await handleCardAction(capabilityApprovalActions[capability]);
 }
@@ -728,8 +763,6 @@ async function submitUserRequest(event: SubmitEvent): Promise<void> {
   messageInput.value = "";
   messageInput.disabled = true;
   messageSend.disabled = true;
-  clearConversationButton.disabled = true;
-  clearConversationButton.hidden = true;
   cancelRequestButton.hidden = false;
   cancelRequestButton.disabled = false;
   cancelRequestButton.textContent = "Cancel";
@@ -745,13 +778,19 @@ async function submitUserRequest(event: SubmitEvent): Promise<void> {
       modeLabel.textContent = "Sending request directly to selected AI agent…";
       await beginThinking(requestId);
       try {
-        const answer = await invoke<string>("ask_qwen", {
-          question: request,
-          conversation: priorConversation,
-          requestId,
-        });
+        const history = conversationContext.history();
+        let contextualRequest = request;
+        if (history.length > 0) {
+          const contextLines = history.map((msg) =>
+            `${msg.role === "user" ? "User" : "Assistant"}: ${msg.content}`
+          ).join("\n");
+          contextualRequest = `Previous conversation:\n${contextLines}\n\nCurrent request: ${request}`;
+        }
+        const answer = await invoke<string>("ask_qwen", { question: contextualRequest, requestId });
         if (!requestLifecycle.acceptsResult(requestId)) return;
         qwenOnline = true;
+        logConversation("user", contextualRequest, requestId);
+        logConversation("assistant", answer.trim(), requestId);
         conversationContext.remember("assistant", answer.trim());
         renderCard(questionAnswerCard(request, answer.trim(), "agent-passthrough", windowContextAction));
         modeLabel.textContent = "Answered directly by selected AI agent";
@@ -1029,11 +1068,7 @@ async function submitUserRequest(event: SubmitEvent): Promise<void> {
 
     modeLabel.textContent = "Asking selected model provider…";
     await beginThinking(requestId);
-    const answer = await invoke<string>("ask_qwen", {
-      question: request,
-      conversation: priorConversation,
-      requestId,
-    });
+    const answer = await invoke<string>("ask_qwen", { question: request, requestId });
     if (!requestLifecycle.acceptsResult(requestId)) return;
     qwenOnline = true;
     renderCard(questionAnswerCard(request, answer.trim(), "local-qwen", windowContextAction));
@@ -1062,8 +1097,6 @@ async function submitUserRequest(event: SubmitEvent): Promise<void> {
       cancelRequestButton.textContent = "Cancel";
       messageInput.disabled = false;
       messageSend.disabled = false;
-      clearConversationButton.disabled = false;
-      clearConversationButton.hidden = false;
       messageInput.focus();
     }
   }
@@ -1539,8 +1572,13 @@ async function observe(): Promise<void> {
 
 collapseButton.addEventListener("click", () => void minimizePanelToOrb("panel-control"));
 messageForm.addEventListener("submit", (event) => void submitUserRequest(event));
-clearConversationButton.addEventListener("click", clearConversation);
 cancelRequestButton.addEventListener("click", () => void cancelCurrentRequest());
+clearContextButton.addEventListener("click", () => {
+  conversationContext.clear();
+  renderCard(statusCard());
+  modeLabel.textContent = "Context cleared — new conversation";
+  recordEvent("context-cleared");
+});
 activityLogButton.addEventListener("click", () => {
   const expanded = activityPanel.hidden;
   activityPanel.hidden = !expanded;
@@ -1551,11 +1589,14 @@ activityLogButton.addEventListener("click", () => {
 });
 settingsButton.addEventListener("click", () => {
   renderCapabilityGrantSettings();
+  loadBubbleScaleSetting();
+  loadSkillsPathSetting();
+  loadVerboseLogSetting();
+  settingsDialog.showModal();
   void loadProviderSettings()
     .catch((error) => {
       providerTestResult.textContent = `Could not load provider settings: ${String(error)}`;
-    })
-    .finally(() => settingsDialog.showModal());
+    });
 });
 avatarSelect.addEventListener("change", () => {
   void applyOrbAvatar(avatarSelect.value, true).catch(() => {
@@ -1564,6 +1605,18 @@ avatarSelect.addEventListener("change", () => {
 });
 providerSelect.addEventListener("change", syncProviderControls);
 providerSaveTest.addEventListener("click", () => void saveAndTestProvider());
+bubbleScaleSelect.addEventListener("change", () => {
+  const scale = Number(bubbleScaleSelect.value);
+  localStorage.setItem("mybuddy-bubble-scale", String(scale));
+  applyBubbleScale(scale);
+  recordEvent("bubble-scale-changed", { scale });
+});
+skillsPathSave.addEventListener("click", saveSkillsPath);
+verboseLogToggle.addEventListener("change", () => {
+  localStorage.setItem("mybuddy-verbose-log", String(verboseLogToggle.checked));
+  loadVerboseLogSetting();
+  recordEvent("verbose-log-toggled", { enabled: verboseLogToggle.checked });
+});
 
 void listen("open-panel", () => void togglePanelFromOrb());
 void listen<ProviderProgressEvent>("provider-progress", ({ payload }) => {
@@ -1614,8 +1667,8 @@ void listen("smoke-top-memory-application-status", () => {
   messageInput.value = "can you give me the top 3 apps that use the most memory";
   messageForm.requestSubmit();
 });
-void listen<string>("smoke-largest-files-status", ({ payload }) => {
-  messageInput.value = `get me a list of the 5 largest files under "${payload}"`;
+void listen("smoke-largest-files-status", () => {
+  messageInput.value = "get me a list of the 5 largest files under d:\\souce";
   messageForm.requestSubmit();
 });
 void listen("smoke-notepad-story-request", () => {
@@ -1677,6 +1730,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   await applyOrbAvatar(selectedAvatar, false).catch(() => {
     recordEvent("orb-avatar-error", { kind: "default-fallback-used" });
   });
+  loadBubbleScaleSetting();
   try {
     await loadProviderSettings();
   } catch (error) {

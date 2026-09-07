@@ -33,6 +33,7 @@ mod windows_takeover {
     };
 
     const NOTEPAD_MAIN_CLASS: &str = "Notepad++";
+    const NOTEPAD_SYSTEM_PATH: &str = r"C:\Program Files\Notepad++\notepad++.exe";
 
     struct WindowSearch {
         class_name: &'static str,
@@ -108,7 +109,7 @@ mod windows_takeover {
     }
 
     fn candidate_paths() -> Vec<PathBuf> {
-        let mut candidates = Vec::new();
+        let mut candidates = vec![PathBuf::from(NOTEPAD_SYSTEM_PATH)];
         if let Some(program_files) = env::var_os("ProgramFiles") {
             candidates.push(
                 PathBuf::from(program_files)

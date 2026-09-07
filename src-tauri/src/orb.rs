@@ -12,6 +12,7 @@ use std::sync::{
 static CURRENT_ORB_BOUNDS: OnceLock<Mutex<Option<OrbBounds>>> = OnceLock::new();
 static NATIVE_ORB_WINDOW: AtomicIsize = AtomicIsize::new(0);
 static CURRENT_ORB_AVATAR: OnceLock<Mutex<Option<OrbAvatar>>> = OnceLock::new();
+static ORB_SCALE_FACTOR: std::sync::atomic::AtomicU32 = std::sync::atomic::AtomicU32::new(1);
 
 struct OrbAvatar {
     width: i32,
@@ -99,10 +100,12 @@ impl OrbBounds {
     }
 
     pub fn is_safe_within(self, work_area: Self) -> bool {
+        let scale = ORB_SCALE_FACTOR.load(std::sync::atomic::Ordering::Acquire);
+        let max_pixels = ORB_MAX_PIXELS * scale.max(1);
         if self.width == 0
             || self.height == 0
-            || self.width > ORB_MAX_PIXELS
-            || self.height > ORB_MAX_PIXELS
+            || self.width > max_pixels
+            || self.height > max_pixels
             || work_area.width == 0
             || work_area.height == 0
         {
@@ -129,6 +132,43 @@ pub fn update_current_bounds(bounds: OrbBounds) {
     if let Ok(mut current) = bounds_state().lock() {
         *current = Some(bounds);
     }
+}
+
+fn orb_state_path() -> Option<std::path::PathBuf> {
+    std::env::var_os("LOCALAPPDATA").map(|dir| {
+        std::path::PathBuf::from(dir)
+            .join("com.kgkz.ambientagent")
+            .join("orb-state.json")
+    })
+}
+
+pub fn save_orb_position(bounds: OrbBounds) {
+    if let Some(path) = orb_state_path() {
+        let scale = ORB_SCALE_FACTOR.load(std::sync::atomic::Ordering::Acquire);
+        let data = serde_json::json!({
+            "x": bounds.x,
+            "y": bounds.y,
+            "scale": scale,
+        });
+        if let Some(parent) = path.parent() {
+            let _ = std::fs::create_dir_all(parent);
+        }
+        let _ = std::fs::write(&path, data.to_string());
+    }
+}
+
+fn load_orb_position() -> Option<(i32, i32)> {
+    let path = orb_state_path()?;
+    let content = std::fs::read_to_string(&path).ok()?;
+    let value: serde_json::Value = serde_json::from_str(&content).ok()?;
+    let x = value.get("x")?.as_i64()? as i32;
+    let y = value.get("y")?.as_i64()? as i32;
+    // Also restore scale if present
+    if let Some(scale) = value.get("scale").and_then(|v| v.as_u64()) {
+        let clamped = (scale as u32).clamp(1, 4);
+        ORB_SCALE_FACTOR.store(clamped, std::sync::atomic::Ordering::Release);
+    }
+    Some((x, y))
 }
 
 pub fn current_orb_bounds() -> Option<OrbBounds> {
@@ -223,6 +263,7 @@ mod windows_orb {
     const MENU_MINIMIZE_TO_TRAY: usize = 2;
     const WM_SHOW_ORB: u32 = WM_APP + 1;
     const WM_AVATAR_CHANGED: u32 = WM_APP + 2;
+    const WM_SCALE_CHANGED: u32 = WM_APP + 3;
 
     struct OrbContext {
         app: AppHandle,
@@ -544,6 +585,41 @@ mod windows_orb {
                 let _ = unsafe { InvalidateRect(Some(hwnd), None, false) };
                 LRESULT(0)
             }
+            WM_SCALE_CHANGED => {
+                let scale = super::ORB_SCALE_FACTOR.load(super::Ordering::Acquire);
+                let base_size = orb_size_for_dpi(unsafe { GetDpiForSystem() });
+                let new_size = (base_size * scale).min(768);
+                let region = unsafe { CreateEllipticRgn(0, 0, new_size as i32, new_size as i32) };
+                if !region.0.is_null() {
+                    unsafe { SetWindowRgn(hwnd, Some(region), true) };
+                }
+                if let Ok(work_area) = primary_work_area() {
+                    if let Some(current) = unsafe { read_window_bounds(hwnd) } {
+                        let new_bounds = OrbBounds::new(
+                            current.x,
+                            current.y,
+                            new_size,
+                            new_size,
+                        );
+                        let safe = clamp_orb_bounds(new_bounds, work_area);
+                        let _ = unsafe {
+                            SetWindowPos(
+                                hwnd,
+                                Some(HWND_TOPMOST),
+                                safe.x,
+                                safe.y,
+                                new_size as i32,
+                                new_size as i32,
+                                SWP_NOACTIVATE | SWP_SHOWWINDOW,
+                            )
+                        };
+                        update_current_bounds(safe);
+                        super::save_orb_position(safe);
+                    }
+                }
+                let _ = unsafe { InvalidateRect(Some(hwnd), None, false) };
+                LRESULT(0)
+            }
             WM_NCLBUTTONDOWN => {
                 if let (Some(context), Some(bounds)) = (unsafe { context(hwnd) }, unsafe {
                     read_window_bounds(hwnd)
@@ -596,6 +672,7 @@ mod windows_orb {
                             };
                         }
                         update_current_bounds(safe);
+                        super::save_orb_position(safe);
                         let _ = diagnostic_log::append_internal(
                             &context.app,
                             "native-orb-moved",
@@ -620,14 +697,42 @@ mod windows_orb {
                 LRESULT(0)
             }
             WM_TIMER if wparam.0 == GUARD_TIMER_ID => {
+                // Re-assert topmost on every tick so the orb never falls behind
+                use windows::Win32::UI::WindowsAndMessaging::{SWP_NOMOVE, SWP_NOSIZE};
+                let _ = unsafe {
+                    SetWindowPos(
+                        hwnd,
+                        Some(HWND_TOPMOST),
+                        0, 0, 0, 0,
+                        SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE,
+                    )
+                };
                 if !unsafe { guard_bounds(hwnd) } {
+                    // Recover by clamping to safe bounds instead of exiting
+                    if let Ok(work_area) = primary_work_area() {
+                        if let Some(current) = unsafe { read_window_bounds(hwnd) } {
+                            let safe = clamp_orb_bounds(current, work_area);
+                            let _ = unsafe {
+                                SetWindowPos(
+                                    hwnd,
+                                    Some(HWND_TOPMOST),
+                                    safe.x,
+                                    safe.y,
+                                    safe.width as i32,
+                                    safe.height as i32,
+                                    SWP_NOACTIVATE | SWP_SHOWWINDOW,
+                                )
+                            };
+                            update_current_bounds(safe);
+                            super::save_orb_position(safe);
+                        }
+                    }
                     if let Some(context) = unsafe { context(hwnd) } {
                         let _ = diagnostic_log::append_internal(
                             &context.app,
-                            "native-orb-guard-failure",
-                            serde_json::json!({ "action": "exit" }),
+                            "native-orb-guard-recovery",
+                            serde_json::json!({ "action": "clamped" }),
                         );
-                        context.app.exit(70);
                     }
                 }
                 LRESULT(0)
@@ -670,12 +775,15 @@ mod windows_orb {
             }
 
             let work_area = primary_work_area()?;
-            let size = orb_size_for_dpi(unsafe { GetDpiForSystem() });
-            let bounds = OrbBounds::new(
-                work_area.x + work_area.width as i32 - size as i32 - 24,
-                work_area.y + work_area.height as i32 - size as i32 - 24,
-                size,
-                size,
+            let scale = super::ORB_SCALE_FACTOR.load(super::Ordering::Acquire).max(1);
+            let base_size = orb_size_for_dpi(unsafe { GetDpiForSystem() });
+            let size = (base_size * scale).min(768);
+            let default_x = work_area.x + work_area.width as i32 - size as i32 - 24;
+            let default_y = work_area.y + work_area.height as i32 - size as i32 - 24;
+            let (start_x, start_y) = super::load_orb_position().unwrap_or((default_x, default_y));
+            let bounds = clamp_orb_bounds(
+                OrbBounds::new(start_x, start_y, size, size),
+                work_area,
             );
             if !bounds.is_safe_within(work_area) {
                 return Err(windows::core::Error::new(
@@ -777,6 +885,8 @@ mod windows_orb {
 
     pub fn start(app: AppHandle) -> Result<OrbBounds, String> {
         super::initialize_default_avatar()?;
+        // Load saved position and scale before starting the orb thread
+        let _ = super::load_orb_position();
         let (sender, receiver) = mpsc::channel();
         thread::Builder::new()
             .name("ambient-native-orb".into())
@@ -818,6 +928,22 @@ mod windows_orb {
         }
         .map_err(|error| error.to_string())
     }
+
+    pub fn notify_scale_changed() -> Result<(), String> {
+        let raw = super::NATIVE_ORB_WINDOW.load(super::Ordering::Acquire);
+        if raw == 0 {
+            return Err("native orb is not running".into());
+        }
+        unsafe {
+            PostMessageW(
+                Some(HWND(raw as *mut c_void)),
+                WM_SCALE_CHANGED,
+                WPARAM(0),
+                LPARAM(0),
+            )
+        }
+        .map_err(|error| error.to_string())
+    }
 }
 
 #[cfg(target_os = "windows")]
@@ -851,6 +977,23 @@ pub fn set_orb_avatar(
         &app,
         "native-orb-avatar-updated",
         serde_json::json!({ "avatarId": avatar_id }),
+    )?;
+    Ok(())
+}
+
+#[tauri::command]
+pub fn set_orb_scale(
+    app: tauri::AppHandle,
+    scale: u32,
+) -> Result<(), String> {
+    let clamped = scale.clamp(1, 4);
+    ORB_SCALE_FACTOR.store(clamped, Ordering::Release);
+    #[cfg(target_os = "windows")]
+    windows_orb::notify_scale_changed()?;
+    crate::diagnostic_log::append_internal(
+        &app,
+        "native-orb-scale-updated",
+        serde_json::json!({ "scale": clamped }),
     )?;
     Ok(())
 }

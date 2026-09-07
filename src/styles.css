@@ -52,7 +52,7 @@ button { font: inherit; }
   grid-template-rows: auto 1fr auto;
   border: 1px solid rgba(141, 172, 230, .22);
   border-radius: 42px 42px 34px 42px;
-  overflow: visible;
+  overflow: hidden;
   background:
     linear-gradient(145deg, rgba(36, 50, 82, .34), transparent 42%),
     var(--panel);
@@ -89,15 +89,15 @@ button { font: inherit; }
 @keyframes buddy-talk { 0%, 65%, 100% { transform: translateY(0); opacity: .55; } 32% { transform: translateY(-3px); opacity: 1; } }
 .thought-trail {
   position: absolute;
-  right: 2px;
-  bottom: -50px;
+  right: 14px;
+  bottom: 6px;
   width: 76px;
   height: 50px;
   pointer-events: none;
   filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, .28));
 }
 :root[data-bubble-side="left"] .thought-trail {
-  left: 2px;
+  left: 12px;
   right: auto;
   transform: scaleX(-1);
 }
@@ -112,6 +112,7 @@ button { font: inherit; }
 .thought-dot:nth-child(2) { left: 35px; top: 23px; width: 16px; height: 16px; }
 .thought-dot:nth-child(3) { left: 60px; top: 38px; width: 10px; height: 10px; }
 .header-actions { display: flex; align-items: center; gap: 12px; }
+.header-action-stack { display: grid; gap: 4px; }
 .eyebrow { color: var(--cyan); font-size: 10px; font-weight: 700; letter-spacing: .19em; }
 .mode-label { margin-top: 4px !important; color: var(--muted); font-size: 12px; }
 .icon-button {
@@ -128,7 +129,7 @@ button { font: inherit; }
 }
 .icon-button:hover { color: white; border-color: rgba(97, 231, 255, .42); }
 #settings-dialog {
-  width: min(390px, calc(100% - 32px));
+  width: min(420px, calc(100% - 32px));
   max-height: min(760px, calc(100vh - 32px));
   padding: 0;
   border: 1px solid rgba(141, 172, 230, .28);
@@ -136,9 +137,10 @@ button { font: inherit; }
   color: var(--settings-field-ink);
   background: var(--settings-surface);
   box-shadow: 0 24px 64px rgba(0,0,0,.62);
+  overflow: hidden;
 }
 #settings-dialog::backdrop { background: rgba(3, 6, 13, .72); }
-.settings-form { display: grid; max-height: inherit; overflow-y: auto; }
+.settings-form { display: grid; max-height: inherit; overflow-y: auto; scrollbar-gutter: stable; }
 .settings-header { display: flex; align-items: center; justify-content: space-between; padding: 18px; border-bottom: 1px solid var(--line); }
 .settings-header h2, .settings-section h3, .settings-section p { margin: 0; }
 .settings-header h2 { margin-top: 4px; color: var(--settings-field-ink); font-size: 20px; }
@@ -161,6 +163,18 @@ button { font: inherit; }
 #provider-save-test:disabled { opacity: .55; cursor: wait; }
 #provider-test-result { min-height: 18px; color: var(--muted); }
 .capability-grants { border-top: 1px solid var(--line); }
+.bubble-scale-settings { border-top: 1px solid var(--line); }
+.skills-path-settings { border-top: 1px solid var(--line); }
+.verbose-log-settings { border-top: 1px solid var(--line); }
+.toggle-row { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.toggle-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--cyan); cursor: pointer; }
+#verbose-log-path { font-size: 11px; word-break: break-all; }
+#bubble-scale-select { width: 100%; height: 40px; padding: 0 10px; border: 1px solid var(--settings-border); border-radius: 10px; color: var(--settings-field-ink); background: var(--settings-field); }
+#bubble-scale-select:focus { outline: 2px solid var(--cyan); outline-offset: 1px; }
+#skills-path-input { width: 100%; height: 40px; padding: 0 10px; border: 1px solid var(--settings-border); border-radius: 10px; color: var(--settings-field-ink); background: var(--settings-field); caret-color: var(--settings-field-ink); }
+#skills-path-input:focus { outline: 2px solid var(--cyan); outline-offset: 1px; }
+#skills-path-input::placeholder { color: var(--settings-placeholder); opacity: 1; }
+#skills-path-save { min-height: 40px; border: 0; border-radius: 10px; color: #071219; background: linear-gradient(135deg, var(--cyan), #79f2d0); cursor: pointer; font-weight: 700; }
 .settings-empty { padding: 10px 0; }
 .capability-grant-row { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,.035); }
 .capability-grant-row + .capability-grant-row { margin-top: 8px; }

@@ -1,5 +1,6 @@
 mod computer_use_takeover;
 mod diagnostic_log;
+mod file_io;
 mod notepad_takeover;
 mod observer;
 pub mod orb;
@@ -450,12 +451,7 @@ pub fn run() {
                     std::thread::sleep(std::time::Duration::from_secs(3));
                     let _ = handle.emit("smoke-auto-suggestion", ());
                     std::thread::sleep(std::time::Duration::from_secs(2));
-                    if let Ok(root) = std::env::current_dir() {
-                        let _ = handle.emit(
-                            "smoke-largest-files-status",
-                            root.to_string_lossy().to_string(),
-                        );
-                    }
+                    let _ = handle.emit("smoke-largest-files-status", ());
                 });
             }
             if std::env::args().any(|argument| argument == "--smoke-provider-question") {
@@ -576,6 +572,7 @@ pub fn run() {
             provider::cancel_provider_request,
             provider::save_and_test_provider,
             orb::set_orb_avatar,
+            orb::set_orb_scale,
             computer_use_takeover::execute_computer_use_goal,
             computer_use_takeover::execute_application_visual_workflow,
             computer_use_takeover::execute_autohotkey_demo,
@@ -583,6 +580,10 @@ pub fn run() {
             computer_use_takeover::plan_computer_use_guidance,
             notepad_takeover::execute_notepad_story,
             diagnostic_log::append_diagnostic_log,
+            diagnostic_log::append_conversation_log,
+            diagnostic_log::get_conversation_log_path,
+            file_io::agent_read_file,
+            file_io::agent_write_file,
             set_agent_surface,
             get_agent_surface_open,
             get_agent_surface_state,

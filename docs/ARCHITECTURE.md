@@ -1,24 +1,12 @@
 # Architecture
 
-## Relocatable repository and machine boundaries
-
-All project assets are addressed relative to the repository root during development and relative to the packaged resource root after installation. Machine-owned locations—user profiles, application installation roots, vaults, credentials, and provider state—are discovered from platform APIs, environment variables, or explicit operator input. The configured Git remote is not a runtime dependency, and tracked files do not encode its host, owner, clone URL, or visibility.
-
-## Bounded provider continuity and explicit new-conversation boundary — ADA-080
-
-The composer owns one process-local `ConversationContext` capped at eight role-labelled messages and 2,000 characters per message. Before recording a new user turn, the frontend snapshots the prior window and supplies it with ordinary selected-provider completion calls. Native code validates roles, re-bounds the payload, serializes the recent exchange as delimited context, and leaves the current user request last. Empty history preserves the original one-shot prompt exactly.
-
-This repairs a transport discontinuity: selected-agent planning already received prior messages, but ordinary equipped-agent passthrough called `ask_qwen` with only the latest sentence. Because each Hermes CLI invocation is a fresh bounded query, `can you get me the link to the email` arrived without the preceding email result and correctly—but unhelpfully—asked which email. The fix preserves runtime-owned email/vault tools; it does not add email logic to MBAI.
-
-The visible **Clear** control defines a new conversation. It resets messages and prepared-application identity, removes pending approval state, clears the composer/card, and does not affect provider settings or external data. The control is hidden during active work so users cancel the owned request before discarding its context. Conversation content remains absent from diagnostics.
-
 ## Profile-backed selected-agent bridge — ADA-074/075
 
 The persisted `codex-cli`, `claude-cli`, and `qwen-cli` choices launch `hermes -p hermescodex`, `hermes -p hermesclaude`, and `hermes -p hermesqwen` respectively. Startup loads that persisted selection before enabling the composer or running provider health checks; a settings-load failure leaves input disabled instead of silently retaining the HTML `lm-studio` default. These are the full configured agent runtimes, invoked through stdin-driven `hermes chat --query-file - --quiet` with a five-minute bound and no `--yolo` or permission-bypass flag.
 
 This boundary was selected from live evidence: bare Codex and Claude advertised no email-search tool, bare Qwen lacked noninteractive authentication, while the installed Composio SDK had two active Gmail connections. The credential-free `composio-gmail` skill now lives in the project-owned `harness/skills` directory and exposes bounded read-only status/search to every selected-model profile. It discovers active connections dynamically, reads the machine-local credential without printing it, emits header metadata only, and implements no send/delete/move operation.
 
-Ordinary questions sent to an equipped profile bypass MBAI's smaller host-tool planner and are passed directly with bounded role-labelled recent conversation when available, allowing the selected runtime to resolve follow-ups and discover its own skills, MCP, shell, email, and vault tools. System-state, demonstrate, and execute requests still use MBAI's bounded host planning. Nonvisual email/vault requests never fall back to `desktop.visual_workflow`. Provider-native access still does not bypass consequence policy: read/search and send/delete remain distinct, and explicit user intent is required for external mutation.
+Ordinary questions sent to an equipped profile bypass MBAI's smaller host-tool planner and are passed through verbatim, allowing the selected runtime to discover its own skills, MCP, shell, email, and vault tools. System-state, demonstrate, and execute requests still use MBAI's bounded host planning. Nonvisual email/vault requests never fall back to `desktop.visual_workflow`. Provider-native access still does not bypass consequence policy: read/search and send/delete remain distinct, and explicit user intent is required for external mutation.
 
 High-risk checks compare normalized complete words and phrases. Terms such as `format` still block a destructive formatting goal, but no longer reject benign words such as `information`.
 

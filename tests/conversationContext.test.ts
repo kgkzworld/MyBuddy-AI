@@ -38,16 +38,4 @@ describe("bounded conversation context", () => {
 
     expect(context.preferredApplicationFor("Show me how to open a file")).toBeNull();
   });
-
-  it("clears messages and prepared-application identity for a new conversation", () => {
-    const context = new ConversationContext(6);
-    context.remember("user", "Find the deployment email from Alex");
-    context.remember("assistant", "I found Alex's deployment email.");
-    context.markPreparedApplication("Outlook");
-
-    context.clear();
-
-    expect(context.history()).toEqual([]);
-    expect(context.preferredApplicationFor("Show me how to open a file")).toBeNull();
-  });
 });

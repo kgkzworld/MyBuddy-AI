@@ -31,11 +31,11 @@ describe("model provider settings", () => {
   });
 
   it.each(["codex-cli", "claude-cli", "qwen-cli", "hermes-cli"] as const)(
-    "passes ordinary questions directly to the equipped %s runtime",
+    "passes all requests directly to the equipped %s runtime",
     (providerId) => {
       expect(shouldPassThroughToSelectedAgent(providerId, "question")).toBe(true);
-      expect(shouldPassThroughToSelectedAgent(providerId, "takeover-preview")).toBe(false);
-      expect(shouldPassThroughToSelectedAgent(providerId, "running-app-status")).toBe(false);
+      expect(shouldPassThroughToSelectedAgent(providerId, "takeover-preview")).toBe(true);
+      expect(shouldPassThroughToSelectedAgent(providerId, "running-app-status")).toBe(true);
     },
   );
 

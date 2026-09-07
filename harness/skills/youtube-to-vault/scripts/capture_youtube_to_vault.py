@@ -160,9 +160,9 @@ tags:
 
 # {title}
 
-Source: [{title}]({source_url})<br>
-Channel: {author_line}<br>
-Duration: {data["duration"]}<br>
+Source: [{title}]({source_url})  
+Channel: {author_line}  
+Duration: {data["duration"]}  
 Transcript segments: {data["segment_count"]}
 
 > [!note] Transcript provenance

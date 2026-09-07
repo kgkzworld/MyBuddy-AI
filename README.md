@@ -34,19 +34,12 @@ python .\harness\scripts\install_harness.py
 Launch the built 0.1.6 executable directly:
 
 ```powershell
-& "./src-tauri/target/release/ambient-desktop-agent.exe"
+& "D:/Source/ambient-desktop-agent/src-tauri/target/release/ambient-desktop-agent.exe"
 ```
 
 The application starts with a small native circular orb and a notification-area icon. The orb remains always on top without accepting keyboard focus. Automatic suggestions use a separate opaque, non-topmost WebView window shown with Win32 no-activation flags so the current application keeps focus. It is not configured to launch at sign-in.
 
 For complete Windows, macOS, and Linux installation paths, see [Install MyBuddy-AI](docs/INSTALL.md). It includes click-through instructions, source builds, automation scripts, an AI-assisted workflow, and an honest platform-support matrix.
-
-## Contextual conversations and explicit reset — ADA-080
-
-- Follow-up questions carry a bounded in-memory window of the recent user/assistant exchange to the same selected AI. A request such as `can you get me the link to the email` can therefore resolve “the email” from the result immediately above it instead of starting an unrelated one-shot query.
-- **Clear** starts a new conversation, removes the retained message window and prepared-application identity, clears pending approvals, and leaves no conversation text in diagnostics. It is unavailable while a request is running; use **Cancel** first when necessary.
-- Conversation context is process-local, limited to eight messages and 2,000 characters per message, and resets when MyBuddy-AI exits.
-- The canonical Windows release was relaunched and the user confirmed the real email-search → contextual email-link follow-up works end to end.
 
 ## MyBuddy-AI portable harness milestone — 0.1.6
 

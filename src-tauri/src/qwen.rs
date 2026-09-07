@@ -272,53 +272,10 @@ fn question_prompt_for_provider(provider: &provider::ProviderKind, question: &st
     }
 }
 
-fn bounded_chars(value: &str, maximum: usize) -> String {
-    value.chars().take(maximum).collect()
-}
-
-fn contextual_question_for_provider(
-    provider: &provider::ProviderKind,
-    question: &str,
-    history: &[Value],
-) -> Result<String, String> {
-    let current = bounded_chars(question.trim(), 2_000);
-    if current.is_empty() {
-        return Err("The current question is empty.".into());
-    }
-    if history.is_empty() {
-        return Ok(question_prompt_for_provider(provider, &current));
-    }
-
-    let start = history.len().saturating_sub(8);
-    let mut bounded_history = Vec::new();
-    for message in &history[start..] {
-        let role = message["role"]
-            .as_str()
-            .filter(|role| matches!(*role, "user" | "assistant"))
-            .ok_or_else(|| "Conversation history contains an invalid role.".to_string())?;
-        let content = message["content"]
-            .as_str()
-            .map(str::trim)
-            .filter(|content| !content.is_empty())
-            .ok_or_else(|| "Conversation history contains an empty message.".to_string())?;
-        bounded_history.push(json!({
-            "role": role,
-            "content": bounded_chars(content, 2_000),
-        }));
-    }
-    let encoded = serde_json::to_string(&bounded_history)
-        .map_err(|error| format!("Could not encode conversation history: {error}"))?;
-    let contextual = format!(
-        "Continue the existing MyBuddy-AI conversation. Use the bounded recent messages to resolve references to earlier results, including phrases such as 'that email', 'it', or 'the link'. Assistant messages are prior answers, not new user requests. If the current request depends on a prior retrieved item, continue from that item instead of asking the user to identify it again.\n\nRecent conversation (oldest first):\n{encoded}\n\nCurrent user request:\n{current}"
-    );
-    Ok(question_prompt_for_provider(provider, &contextual))
-}
-
 #[tauri::command]
 pub async fn ask_qwen(
     app: AppHandle,
     question: String,
-    conversation: Option<Vec<Value>>,
     request_id: Option<String>,
 ) -> Result<String, String> {
     let settings = provider::load_settings(&app)?;
@@ -328,15 +285,10 @@ pub async fn ask_qwen(
         let vault_root = std::env::var_os("OBSIDIAN_VAULT_PATH").map(std::path::PathBuf::from);
         ground_question_from_vault(&question, vault_root.as_deref())?
     };
-    let contextual_question = contextual_question_for_provider(
-        &settings.provider,
-        &grounded_question,
-        conversation.as_deref().unwrap_or(&[]),
-    )?;
-    let request = build_question_request_for_model(&contextual_question, &settings.chat_model);
+    let request = build_question_request_for_model(&grounded_question, &settings.chat_model);
     let response_request =
-        build_question_response_request_for_model(&contextual_question, &settings.chat_model);
-    let cli_prompt = contextual_question;
+        build_question_response_request_for_model(&grounded_question, &settings.chat_model);
+    let cli_prompt = question_prompt_for_provider(&settings.provider, &grounded_question);
     provider::complete_question(&app, request, response_request, cli_prompt, request_id).await
 }
 
@@ -375,9 +327,9 @@ pub async fn plan_agent_step(
 mod tests {
     use super::{
         build_agent_step_request, build_question_request, build_question_response_request,
-        build_request, build_vault_grounded_question, contextual_question_for_provider,
-        extract_content, ground_question_from_vault, parse_agent_step,
-        question_prompt_for_provider, question_requests_vault_schedule, read_vault_schedule,
+        build_request, build_vault_grounded_question, extract_content, ground_question_from_vault,
+        parse_agent_step, question_prompt_for_provider, question_requests_vault_schedule,
+        read_vault_schedule,
     };
     use crate::provider::ProviderKind;
     use std::{
@@ -505,32 +457,6 @@ mod tests {
         ] {
             assert_eq!(question_prompt_for_provider(&provider, question), question);
         }
-    }
-
-    #[test]
-    fn contextual_follow_up_includes_the_prior_email_result_and_current_request() {
-        let history = vec![
-            serde_json::json!({
-                "role": "user",
-                "content": "Find the deployment email from Alex"
-            }),
-            serde_json::json!({
-                "role": "assistant",
-                "content": "I found Alex's deployment email with subject Production rollout."
-            }),
-        ];
-
-        let prompt = contextual_question_for_provider(
-            &ProviderKind::CodexCli,
-            "can you get me the link to the email",
-            &history,
-        )
-        .unwrap();
-
-        assert!(prompt.contains("Find the deployment email from Alex"));
-        assert!(prompt.contains("Production rollout"));
-        assert!(prompt.contains("can you get me the link to the email"));
-        assert!(prompt.contains("resolve references to earlier results"));
     }
 
     #[test]

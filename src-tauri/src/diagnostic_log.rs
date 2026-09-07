@@ -86,6 +86,56 @@ pub fn append_diagnostic_log(
     append_record(&app, &at, &event, detail)
 }
 
+#[tauri::command]
+pub fn append_conversation_log(
+    app: tauri::AppHandle,
+    role: String,
+    content: String,
+    request_id: Option<String>,
+    provider: Option<String>,
+) -> Result<String, String> {
+    let directory = app
+        .path()
+        .app_local_data_dir()
+        .map_err(|error| error.to_string())?
+        .join("logs");
+    fs::create_dir_all(&directory).map_err(|error| error.to_string())?;
+    let path = directory.join("conversation.jsonl");
+    let at = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|error| error.to_string())?
+        .as_millis()
+        .to_string();
+    let record = serde_json::json!({
+        "at": at,
+        "role": role,
+        "content": content,
+        "requestId": request_id,
+        "provider": provider,
+    });
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&path)
+        .map_err(|error| error.to_string())?;
+    file.write_all(format!("{}\n", record).as_bytes())
+        .map_err(|error| error.to_string())?;
+    Ok(path.to_string_lossy().into_owned())
+}
+
+#[tauri::command]
+pub fn get_conversation_log_path(
+    app: tauri::AppHandle,
+) -> Result<String, String> {
+    let path = app
+        .path()
+        .app_local_data_dir()
+        .map_err(|error| error.to_string())?
+        .join("logs")
+        .join("conversation.jsonl");
+    Ok(path.to_string_lossy().into_owned())
+}
+
 #[cfg(test)]
 mod tests {
     use super::format_record;

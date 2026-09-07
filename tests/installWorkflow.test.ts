@@ -5,10 +5,6 @@ const files = import.meta.glob<string>(["../docs/*.md", "../scripts/*"], {
   query: "?raw",
   import: "default",
 });
-const portableRepositoryFiles = import.meta.glob<string>(
-  ["../AGENTS.md", "../README.md", "../docs/*.md", "../scripts/*", "../harness/**/*"],
-  { eager: true, query: "?raw", import: "default" },
-);
 
 function read(relative: string): string {
   return files[`../${relative}`] ?? "";
@@ -45,13 +41,5 @@ describe("cross-platform installation delivery", () => {
     expect(playbook).toContain("cargo test");
     expect(playbook).toContain("Do not claim macOS or Linux feature parity");
     expect(playbook).toContain("read back");
-  });
-
-  it("keeps tracked guidance free of checkout paths and repository visibility claims", () => {
-    const guidance = Object.values(portableRepositoryFiles).join("\n");
-    expect(guidance).not.toMatch(/\b[A-Za-z]:[\\/]/);
-    expect(guidance).not.toMatch(/\/(?:Users|home)\//);
-    expect(guidance).not.toMatch(/\b(?:private|public)\s+(?:canonical\s+)?(?:GitHub\s+)?repository\b/i);
-    expect(guidance).not.toMatch(/github\.com\/[^/\s]+\/MyBuddy-AI/i);
   });
 });

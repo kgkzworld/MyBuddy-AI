@@ -21,9 +21,10 @@
           </div>
           <div class="header-actions">
             <span id="status-dot" class="status-dot" aria-label="Agent status"></span>
-            <button id="clear-conversation" class="text-button" type="button" aria-label="Clear conversation and start over" title="Clear conversation and start over">Clear</button>
-            <button id="activity-log-button" class="text-button" type="button" aria-expanded="false" aria-controls="activity-panel">Live log</button>
-            <button id="cancel-request" class="text-button danger" type="button" hidden>Cancel</button>
+            <div class="header-action-stack">
+              <button id="activity-log-button" class="text-button" type="button" aria-expanded="false" aria-controls="activity-panel">Live log</button>
+              <button id="cancel-request" class="text-button danger" type="button" hidden>Cancel</button>
+            </div>
             <button id="settings-button" class="icon-button" aria-label="Settings">⚙</button>
             <button id="collapse" class="icon-button" aria-label="Minimize to orb" title="Minimize to orb">—</button>
           </div>
@@ -49,16 +50,17 @@
             <button id="message-send" type="submit">Send</button>
           </form>
           <div class="footer-meta">
+            <button id="clear-context" class="text-button" type="button">New chat</button>
             <span id="privacy-label">Local text · metadata only · no screenshots</span>
             <span id="runtime-label">Checking Qwen…</span>
           </div>
         </footer>
-        <div class="thought-trail" aria-hidden="true">
-          <span class="thought-dot"></span>
-          <span class="thought-dot"></span>
-          <span class="thought-dot"></span>
-        </div>
       </section>
+      <div class="thought-trail" aria-hidden="true">
+        <span class="thought-dot"></span>
+        <span class="thought-dot"></span>
+        <span class="thought-dot"></span>
+      </div>
       <dialog id="settings-dialog" aria-labelledby="settings-title">
         <form method="dialog" class="settings-form">
           <header class="settings-header">
@@ -105,6 +107,38 @@
             <input id="provider-api-key" type="password" autocomplete="new-password" />
             <button id="provider-save-test" type="button">Save and test</button>
             <p id="provider-test-result" role="status"></p>
+          </section>
+          <section class="settings-section bubble-scale-settings">
+            <div>
+              <h3>Bubble size</h3>
+              <p>Scale the MBAI orb bubble on the desktop. Default is 1×.</p>
+            </div>
+            <label for="bubble-scale-select">Orb scale</label>
+            <select id="bubble-scale-select">
+              <option value="1">1× (default)</option>
+              <option value="2">2×</option>
+              <option value="4">4×</option>
+            </select>
+          </section>
+          <section class="settings-section skills-path-settings">
+            <div>
+              <h3>Skills path</h3>
+              <p>Directory where MBAI skills are stored. Skills follow the same format as Hermes, Claude, or Codex skills and are loaded from this path at runtime.</p>
+            </div>
+            <label for="skills-path-input">Skills directory</label>
+            <input id="skills-path-input" type="text" autocomplete="off" spellcheck="false" placeholder="e.g. D:\Source\ambient-desktop-agent\harness\skills" />
+            <button id="skills-path-save" type="button">Save skills path</button>
+          </section>
+          <section class="settings-section verbose-log-settings">
+            <div>
+              <h3>Conversation logging</h3>
+              <p>When enabled, full request and response text is written to a conversation log file for troubleshooting. Logs are stored alongside the diagnostic log.</p>
+            </div>
+            <label class="toggle-row" for="verbose-log-toggle">
+              <input id="verbose-log-toggle" type="checkbox" />
+              <span>Enable verbose conversation log</span>
+            </label>
+            <p id="verbose-log-path" class="settings-empty"></p>
           </section>
           <section class="settings-section capability-grants">
             <div>

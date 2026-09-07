@@ -1,18 +1,5 @@
 # AI-Agent Playbook
 
-## Keep every checkout and installation relocatable
-
-- Resolve repository assets from the repository root, script location, packaged resource directory, or an explicit environment variable/argument. Never copy a developer checkout, home directory, vault root, or installed-program location into tracked content.
-- Treat the configured Git remote as operational state. Do not encode a hosting account, clone URL, or repository visibility in source or documentation; use `<repository-url>` when an operator must supply one.
-- Runtime probes for installed applications must derive candidate roots from platform APIs or environment variables. Smoke tests use the current checkout at runtime, and test fixtures use synthetic values rather than workstation paths.
-
-## Preserve follow-up context until the user clears it — ADA-080
-
-- Every composer submission is part of the current conversation unless the user selects **Clear**. Send up to eight prior user/assistant messages, bounded to 2,000 characters each, with explicit roles to the same selected provider.
-- Treat references such as `that email`, `its link`, `the earlier result`, and `it` as contextual follow-ups. Use the prior answer to resolve the target; do not make the user repeat sender, subject, or keywords already present in the retained exchange.
-- Keep the current user request as the final, clearly delimited instruction. Prior assistant text is context, not a new user command. Do not suppress equipped-runtime skills/tools while adding this context.
-- **Clear** is an explicit new-conversation boundary: erase retained messages and prepared-application identity, clear pending approvals, and reset the visible answer surface. Do not persist conversation text to diagnostics or settings.
-
 ## Install and distribute on the detected desktop OS
 
 - Follow `docs/AI-INSTALL.md`. Discover OS/prerequisites first, request approval before package-manager or installer changes, run the platform automation and full gates, then verify the exact installed target and a nonmutating live question.
@@ -34,7 +21,7 @@
 ## Route selected models through equipped agent profiles — ADA-074/075
 
 - Load persisted provider settings before enabling composer routing. Never infer the selected provider from the HTML default or health result alone.
-- Treat Codex, Claude, Qwen, and Hermes Settings selections as equipped-agent routes. Pass ordinary questions directly, adding only bounded recent conversation when needed so the runtime can resolve follow-ups while retaining its shared skills, tools, authentication context, and native permissions. Use MBAI host planning only for local machine state, demonstrations, and execution.
+- Treat Codex, Claude, Qwen, and Hermes Settings selections as equipped-agent routes. Pass ordinary questions through verbatim so the runtime can use its shared skills, tools, authentication context, and native permissions. Use MBAI host planning only for local machine state, demonstrations, and execution.
 - For email/inbox/Gmail/Outlook/vault/Obsidian requests, never invoke `desktop.visual_workflow`. Acceptance requires a non-refusal answer and runtime-session evidence of the configured connector or vault tools; turn completion alone is insufficient.
 - The shared Composio Gmail skill is read-only and metadata-bounded. Never place keys, account IDs, addresses, or message bodies in prompts, diagnostics, documentation, or tests. Sending, deleting, moving, or modifying mail requires a separate consequential capability and explicit intent.
 - Normalize provider envelope noise, not semantics: strip Hermes `session_id:` metadata and accept `decision: "answer"` as `final` only with a nonempty answer. Unknown decisions and empty answers still fail closed.

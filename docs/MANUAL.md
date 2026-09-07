@@ -1,13 +1,5 @@
 # MyBuddy-AI Manual Procedure
 
-## Continue or clear a conversation — ADA-080
-
-1. Ask MyBuddy-AI a question and wait for its answer. Follow-up references such as `that email`, `its link`, or `the app` use the bounded recent exchange automatically.
-2. Continue asking questions in the same mini-screen; no sender, subject, or application restatement is required when the intended referent appears in the retained exchange.
-3. To intentionally start over, select **Clear** in the header. The answer card resets to the ready state, the composer is emptied and focused, and the retained conversation plus prepared-application identity are discarded.
-4. **Clear** is unavailable during active work. Select **Cancel**, wait for cancellation to complete, and then select **Clear**.
-5. Clearing does not delete email, vault notes, files, logs, provider sessions, or settings. Conversation text is in memory only and is never copied to the activity log.
-
 ## Install MyBuddy-AI on Windows, macOS, or Linux
 
 - Follow `docs/INSTALL.md` for the click-through installer and source-build procedure for the target operating system.
@@ -58,7 +50,7 @@
 
 ## Largest files under a local folder — ADA-069
 
-- Ask directly and name the folder you want inspected, for example: `get me a list of the 5 largest files under <folder>`.
+- Ask directly, for example: `get me a list of the 5 largest files under D:\Source`.
 - MBAI reads filesystem metadata only. If the exact directory is absent and exactly one sibling directory is one edit away, it discloses that correction and proceeds; otherwise it reports the grounded path error without silently choosing another root.
 
 ## Natural resource-question phrasing — ADA-068
@@ -220,7 +212,7 @@ cargo --version
 ## Install project dependencies
 
 ```powershell
-# Open PowerShell in the repository root first.
+cd D:\Source\ambient-desktop-agent
 $env:NODE_ENV = "development"
 npm install --include=dev
 ```
@@ -332,7 +324,7 @@ The conversation core and equipped-agent harness are designed to be portable, bu
 ```bash
 xcode-select --install
 # Install Node LTS and rustup, then:
-cd /path/to/MyBuddy-AI
+cd /path/to/ambient-desktop-agent
 npm install
 python3 harness/scripts/install_harness.py
 npm test

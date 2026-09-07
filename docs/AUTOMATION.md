@@ -1,13 +1,5 @@
 # Script and Automation Procedure
 
-## Context continuity and reset regression — ADA-080
-
-- Run `npm test -- --run tests/conversationContext.test.ts tests/conversationContinuity.test.ts` and `cargo test --manifest-path src-tauri/Cargo.toml contextual_follow_up_includes_the_prior_email_result_and_current_request` before the full gate.
-- Retain the exact two-turn fixture: assistant result `I found the quarterly report email from Alex.` followed by user request `can you get me the link to the email`. The provider input must contain both turns with explicit roles and must keep the current request last.
-- Verify **Clear** is wired to `ConversationContext.clear()`, removes pending approval/prepared-app state, resets the visible card, and is unavailable while a request is active. Conversation text must not enter diagnostics.
-- Packaged UI acceptance requires a clean process and the user's exact real two-turn read-only email flow. Verify the second runtime session invokes the configured email-search capability and does not ask which email. Inspect only privacy-safe tool names/categories—never email content, addresses, IDs, or connector URLs.
-- Live acceptance passed after relaunching the canonical release executable: the user independently completed the real email search followed by the contextual link request and confirmed the flow works. Preserve this as behavioral acceptance without recording private email details.
-
 ## Cross-platform installation automation
 
 - Windows: `powershell -ExecutionPolicy Bypass -File scripts/install-mybuddy.ps1` verifies dependencies, installs the portable harness, and runs all source gates. Add `-BuildBundle` to package or `-Install` to package and launch the exact NSIS installer.
@@ -61,7 +53,7 @@
 
 ## Largest-file adapter checks — ADA-069
 
-- Retain a synthetic misspelled-directory regression, 1–10 result bound, explanation-intent exclusion, one-edit typo test, native-command registration test, smoke flag, and internal Windows device-prefix formatting regression. Test data must not use a developer's real filesystem path.
+- Retain the exact `d:\souce` regression, 1–10 result bound, explanation-intent exclusion, one-edit typo test, native-command registration test, smoke flag, and internal Windows device-prefix formatting regression.
 - Verify with focused TypeScript tests, frontend build, Rust tests/formatting, canonical packaging, exact release smoke, full gate, and `git diff --check`.
 
 ## Resource paraphrase matrix — ADA-068
@@ -105,7 +97,7 @@
 
 ## AutoHotkey-guided demonstration verification — ADA-061
 
-- Verify AutoHotkey v2 without a tray/console using `%ProgramFiles%\AutoHotkey\v2\AutoHotkey64.exe` (or the path derived from the corresponding system environment variable). Do not reinstall or update when the installed probe already passes.
+- Verify AutoHotkey v2 without a tray/console using the installed `C:\Program Files\AutoHotkey\v2\AutoHotkey64.exe`. The accepted workstation version is 2.0.26; do not reinstall or update when this probe already passes.
 - Run `npm test -- --run tests/autohotkeyDemo.test.ts tests/computerUseApproval.test.ts tests/fileOpenGuidance.test.ts tests/thinkingOrb.test.ts tests/userRequest.test.ts`. Acceptance requires Normal/Slow/Cancel, immutable approval target capture, native cancellation, thinking-avatar restoration, and a test-only smoke event routed through the same production handler.
 - Run `cargo test --manifest-path src-tauri/Cargo.toml computer_use_takeover::tests::`. Native acceptance requires exact HWND activation, fresh token-center resolution, smooth visible `SetCursorPos`, exact child-window and same-PID validation, direct down/up window messages, no `BlockInput`/hooks/clipping, 10-second child timeout, 120-second scope, and generic semantic file-picker completion.
 - Planner `type` is accepted only for current enabled Edit/ComboBox roles when its bounded text is a verbatim substring of the approved goal. Generated scripts contain numeric UTF-16 units rather than raw text or model-authored source.
@@ -184,7 +176,7 @@ Orb `open-panel` handling must call `get_agent_surface_state`. Hidden/minimized 
 Word File > Open launches the fixed PowerShell/COM helper with Windows `CREATE_NO_WINDOW` (`0x08000000`). This suppresses only the automation console; `WINWORD.EXE` and its modal Open dialog remain visible.
 
 Persistent approvals are stored under WebView local-storage key `mybuddy-capability-grants`. Only the three compile-time capability IDs are accepted. Each grant records grant time, use count, and last-use time; creation/use/revocation are also sent through redacted diagnostics. Settings must retain per-capability revocation.
-LM Studio persistence uses `%USERPROFILE%\.lmstudio\startup\ensure-local-models.ps1` and scheduled task **LM Studio - Ensure Local Models**. The task has a delayed-logon trigger plus an idempotent five-minute health trigger. Recovery preserves `instruct` at 65,536 context, `autocomplete` at 8,192, parallel 1, GPU max, and no TTL. Verify with `lms ps`, `/v1/models`, native allocation metadata, and a real completion.
+LM Studio persistence is owned by `C:\Users\<username>\.lmstudio\startup\ensure-local-models.ps1` and scheduled task **LM Studio - Ensure Local Models**. The task has a delayed-logon trigger plus an idempotent five-minute health trigger. Recovery preserves `instruct` at 65,536 context, `autocomplete` at 8,192, parallel 1, GPU max, and no TTL. Verify with `lms ps`, `/v1/models`, native allocation metadata, and a real completion.
 
 Always package with `npm run tauri build`; a direct `cargo build --release` can create a native orb whose WebView frontend does not initialize. The guarded timeout range is 5–120 seconds. The internal `--smoke-minimize-panel` trigger exercises the exact frontend minimize handler and must end with the Tauri panel HWND hidden while the orb/process remain visible/alive.
 

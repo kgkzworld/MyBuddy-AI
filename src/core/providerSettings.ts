@@ -7,7 +7,7 @@ const EQUIPPED_AGENT_PROVIDERS = new Set([
 
 export function shouldPassThroughToSelectedAgent(
   provider: string,
-  requestClass: string,
+  _requestClass: string,
 ): boolean {
-  return requestClass === "question" && EQUIPPED_AGENT_PROVIDERS.has(provider);
+  return EQUIPPED_AGENT_PROVIDERS.has(provider);
 }

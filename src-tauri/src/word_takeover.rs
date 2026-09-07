@@ -27,7 +27,7 @@ mod windows_takeover {
     const WORD_MAIN_CLASS: &str = "OpusApp";
     const FILE_DIALOG_CLASS: &str = "#32770";
     const FILE_DIALOG_TITLE: &str = "Open";
-
+    const WORD_SYSTEM_PATH: &str = r"C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE";
     const WORD_OPEN_SCRIPT: &str = r#"
 $ErrorActionPreference = 'Stop'
 $dialogId = __DIALOG_ID__
@@ -128,7 +128,7 @@ $null = $word.Dialogs.Item($dialogId).Show()
     }
 
     fn installed_word() -> Option<PathBuf> {
-        let mut candidates = Vec::new();
+        let mut candidates = vec![PathBuf::from(WORD_SYSTEM_PATH)];
         for variable in ["ProgramFiles", "ProgramFiles(x86)"] {
             if let Some(root) = env::var_os(variable) {
                 candidates.push(

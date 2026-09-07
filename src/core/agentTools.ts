@@ -18,6 +18,17 @@ function boundedString(argumentsValue: Record<string, unknown>, name: string, ma
   return value.trim();
 }
 
+function getAllowedFileDirs(): string[] {
+  const dirs: string[] = [];
+  const skillsPath = localStorage.getItem("mybuddy-skills-path") ?? "";
+  const medsDataPath = localStorage.getItem("mybuddy-meds-data-path") ?? "";
+  const medsOutputPath = localStorage.getItem("mybuddy-meds-output-path") ?? "";
+  if (skillsPath) dirs.push(skillsPath);
+  if (medsDataPath) dirs.push(medsDataPath);
+  if (medsOutputPath) dirs.push(medsOutputPath);
+  return dirs;
+}
+
 function boundedInteger(argumentsValue: Record<string, unknown>, name: string, minimum: number, maximum: number, fallback: number): number {
   const value = argumentsValue[name];
   if (typeof value !== "number" || !Number.isFinite(value)) return fallback;
@@ -80,6 +91,15 @@ export function createReadOnlyAgentTools(
         return { iso: value.toISOString(), local: value.toLocaleString() };
       },
     },
+    {
+      id: "file.read",
+      description: "Read the contents of a text file from one of the user's configured allowed directories (skills path, meds data path, meds output path). Arguments: { path: string }.",
+      risk: "read-only",
+      execute: (argumentsValue) => invokeNative("agent_read_file", {
+        path: boundedString(argumentsValue, "path", 1_024),
+        allowedDirs: getAllowedFileDirs(),
+      }),
+    },
   ];
 }
 
@@ -106,6 +126,16 @@ export function createAgentTools(
         application: boundedString(argumentsValue, "application", 80),
         goal: boundedString(argumentsValue, "goal", 500),
         mode: visualWorkflowMode(argumentsValue),
+      }),
+    },
+    {
+      id: "file.write",
+      description: "Write text content to a file in one of the user's configured allowed directories (skills path, meds data path, meds output path). Creates parent directories if needed. Arguments: { path: string, content: string }.",
+      risk: "consequential",
+      execute: (argumentsValue) => invokeNative("agent_write_file", {
+        path: boundedString(argumentsValue, "path", 1_024),
+        content: boundedString(argumentsValue, "content", 262_144),
+        allowedDirs: getAllowedFileDirs(),
       }),
     },
   ];

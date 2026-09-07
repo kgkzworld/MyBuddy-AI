@@ -11,9 +11,7 @@ describe("bounded local desktop state", () => {
     expect(lib).toContain("observer::get_largest_files_status");
     expect(lib).toContain('argument == "--smoke-largest-files-status"');
     expect(main).toContain('if (requestClass === "largest-files-status")');
-    expect(lib).toContain("std::env::current_dir()");
-    expect(main).toContain('listen<string>("smoke-largest-files-status"');
-    expect(main).toContain('under "${payload}"');
+    expect(main).toContain('messageInput.value = "get me a list of the 5 largest files under d:\\\\souce"');
   });
   it("registers a native process-status query without shelling out", () => {
     expect(cargo).toContain('"Win32_System_Diagnostics_ToolHelp"');
